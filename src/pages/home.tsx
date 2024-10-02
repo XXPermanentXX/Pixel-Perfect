@@ -2,7 +2,7 @@
 const HomePage = () => {
     return (
       <>
-        {/* 页面内容 */}
+        {}
       </>
     );
   };
