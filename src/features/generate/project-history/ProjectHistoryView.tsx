@@ -4,6 +4,7 @@ import DownloadButton from "../../ui/DownloadButton";
 
 type ImageType = {
   src: string;
+  id: string;
 };
 
 type ProjectHistoryViewProps = {
@@ -11,15 +12,21 @@ type ProjectHistoryViewProps = {
   openModal: (imageUrl: string) => void;
 };
 
-const ProjectHistoryView: React.FC<ProjectHistoryViewProps> = ({ imageList, openModal }) => {
+const mockData: ImageType[] = [
+  { src: "https://via.placeholder.com/200", id: "1" },
+  { src: "https://via.placeholder.com/201", id: "2" },
+  { src: "https://via.placeholder.com/202", id: "3" },
+];
+
+const ProjectHistoryView: React.FC<ProjectHistoryViewProps> = ({ imageList = mockData, openModal }) => {
   return (
     <div className="ml-20">
       <h2 className="mb-8 mt-24 text-6xl text-white">My photos</h2>
       {imageList && imageList.length > 0 ? (
         <div className="mr-20 flex flex-wrap gap-[15px]">
-          {imageList.map((image, index) => (
+          {imageList.map((image) => (
             <Card
-              key={index}
+              key={image.id}
               isPressable
               onPress={() => openModal(image.src)}
               isHoverable
@@ -28,7 +35,7 @@ const ProjectHistoryView: React.FC<ProjectHistoryViewProps> = ({ imageList, open
               <Image
                 isZoomed
                 src={image.src}
-                alt="history generated photo"
+                alt={"history generated photo"}
                 className="h-[200px] w-[200px] object-cover"
               />
               <DownloadButton imageUrl={image.src} />

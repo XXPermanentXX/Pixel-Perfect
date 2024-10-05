@@ -4,16 +4,26 @@ import { useDisclosure } from "@nextui-org/react";
 import ImageModal from "../../ui/ImageModal";
 import { deleteHistoryImageDataByURL, getHistoryImageData } from "../../models/firebaseModel";
 
+// 定义接口类型
+interface ImageType {
+  src: string;
+}
+
 const ProjectHistory: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [imageList, setImageList] = useState<any[]>([]); // 使用 `any[]` 类型保持最初的灵活性
+  const [imageList, setImageList] = useState<ImageType[]>([]);
 
   const handleDelete = () => {
     if (selectedImage) {
-      deleteHistoryImageDataByURL(selectedImage);
-      setSelectedImage(null);
-      onClose();
+      deleteHistoryImageDataByURL(selectedImage)
+        .then(() => {
+          // 删除后更新列表
+          setImageList((prevList) => prevList.filter((image) => image.src !== selectedImage));
+          setSelectedImage(null);
+          onClose();
+        })
+        .catch((error) => console.error("Failed to delete image:", error));
     }
   };
 
@@ -25,13 +35,18 @@ const ProjectHistory: React.FC = () => {
 
   useEffect(() => {
     getHistoryImageData(setImageList);
-    console.log(imageList);
   }, []);
 
   return (
     <div className="h-full overflow-auto">
       <ProjectHistoryView imageList={imageList} openModal={openModal} />
-      <ImageModal isOpen={isOpen} onClose={onClose} imageSrc={selectedImage} onDelete={handleDelete} showDeleteButton={true} />
+      <ImageModal
+        isOpen={isOpen}
+        onClose={onClose}
+        imageSrc={selectedImage}
+        onDelete={handleDelete}
+        showDeleteButton={true}
+      />
     </div>
   );
 };
