@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Link } from "@nextui-org/react";
-import { downloadIcon } from "../assets";  // È·±£ÏÂÔØÍ¼±êÂ·¾¶ÕıÈ·
+import { downloadIcon } from "../assets";  // ç¡®ä¿ä¸‹è½½å›¾æ ‡è·¯å¾„æ­£ç¡®
 
-// ¶¨Òå×é¼ş Props µÄÀàĞÍ
+// å®šä¹‰ç»„ä»¶ Props çš„ç±»å‹
 interface DownloadButtonProps {
   imageUrl: string;
 }

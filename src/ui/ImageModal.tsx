@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "@nextui-org/react";
 
-// ¶¨Òå×é¼þ Props µÄÀàÐÍ
+// å®šä¹‰ç»„ä»¶ Props çš„ç±»åž‹
 interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;

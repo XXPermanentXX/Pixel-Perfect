@@ -1,19 +1,19 @@
 /**
- * ÏÂÔØÍ¼Æ¬²¢±£´æÎªÖ¸¶¨ÎÄ¼şÃû
- * @param src Í¼Æ¬µÄ URL
- * @param filename ÏÂÔØÊ±±£´æµÄÎÄ¼şÃû£¨¿ÉÑ¡£¬Ä¬ÈÏÖµÎª "generated_image.png"£©
+ * ä¸‹è½½å›¾ç‰‡å¹¶ä¿å­˜ä¸ºæŒ‡å®šæ–‡ä»¶å
+ * @param src å›¾ç‰‡çš„ URL
+ * @param filename ä¸‹è½½æ—¶ä¿å­˜çš„æ–‡ä»¶åï¼ˆå¯é€‰ï¼Œé»˜è®¤å€¼ä¸º "generated_image.png"ï¼‰
  */
 const downloadImage = (src: string, filename: string = "generated_image.png"): void => {
-  // ´´½¨Ò»¸ö <a> ÔªËØ
+  // åˆ›å»ºä¸€ä¸ª <a> å…ƒç´ 
   const link = document.createElement("a");
-  link.href = src; // ÉèÖÃÍ¼Æ¬µÄ URL
-  link.download = filename; // ÉèÖÃÏÂÔØµÄÎÄ¼şÃû
+  link.href = src; // è®¾ç½®å›¾ç‰‡çš„ URL
+  link.download = filename; // è®¾ç½®ä¸‹è½½çš„æ–‡ä»¶å
 
-  // ½«Á´½ÓÔªËØÌí¼Óµ½Ò³ÃæÖĞ
+  // å°†é“¾æ¥å…ƒç´ æ·»åŠ åˆ°é¡µé¢ä¸­
   document.body.appendChild(link);
-  link.click(); // ´¥·¢µã»÷ÊÂ¼ş
+  link.click(); // è§¦å‘ç‚¹å‡»äº‹ä»¶
 
-  // ÏÂÔØºóÁ¢¼´ÒÆ³ıÔªËØ
+  // ä¸‹è½½åç«‹å³ç§»é™¤å…ƒç´ 
   document.body.removeChild(link);
 };
 

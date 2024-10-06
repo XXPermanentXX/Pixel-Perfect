@@ -4,7 +4,7 @@ import { useDisclosure } from "@nextui-org/react";
 import ImageModal from "../../ui/ImageModal";
 import { deleteHistoryImageDataByURL, getHistoryImageData } from "../../models/firebaseModel";
 
-// ¶¨Òå½Ó¿ÚÀàÐÍ
+// å®šä¹‰æŽ¥å£ç±»åž‹
 interface ImageType {
   src: string;
 }
@@ -18,7 +18,7 @@ const ProjectHistory: React.FC = () => {
     if (selectedImage) {
       deleteHistoryImageDataByURL(selectedImage)
         .then(() => {
-          // É¾³ýºó¸üÐÂÁÐ±í
+          // åˆ é™¤åŽæ›´æ–°åˆ—è¡¨
           setImageList((prevList) => prevList.filter((image) => image.src !== selectedImage));
           setSelectedImage(null);
           onClose();
