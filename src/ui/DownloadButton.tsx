@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Link } from "@nextui-org/react";
-import { downloadIcon } from "../assets";  // ensure the path correct
+import { downloadIcon } from "@/assets";  // ensure the path correct
 
 // define interface type
 interface DownloadButtonProps {

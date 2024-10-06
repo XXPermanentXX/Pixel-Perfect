@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, CardFooter, Image } from "@nextui-org/react";
-import DownloadButton from "../../ui/DownloadButton";
+import DownloadButton from "@/ui/DownloadButton";
 
 type ImageType = {
   src: string;
