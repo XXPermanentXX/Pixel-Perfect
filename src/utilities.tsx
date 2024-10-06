@@ -1,19 +1,19 @@
 /**
- * 下载图片并保存为指定文件名
- * @param src 图片的 URL
- * @param filename 下载时保存的文件名（可选，默认值为 "generated_image.png"）
+ * download the image and save as the given filename
+ * @param src image URL
+ * @param filename （optional, default: "generated_image.png"）
  */
 const downloadImage = (src: string, filename: string = "generated_image.png"): void => {
-  // 创建一个 <a> 元素
+  // new an element <a> 
   const link = document.createElement("a");
-  link.href = src; // 设置图片的 URL
-  link.download = filename; // 设置下载的文件名
+  link.href = src; // set image URL
+  link.download = filename; // set download filename
 
-  // 将链接元素添加到页面中
+  // append the link element to the document
   document.body.appendChild(link);
-  link.click(); // 触发点击事件
+  link.click(); // simulate click to download
 
-  // 下载后立即移除元素
+  // remove the link element from the document after download
   document.body.removeChild(link);
 };
 

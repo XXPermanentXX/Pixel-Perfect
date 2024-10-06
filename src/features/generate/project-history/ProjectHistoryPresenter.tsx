@@ -4,7 +4,7 @@ import { useDisclosure } from "@nextui-org/react";
 import ImageModal from "../../ui/ImageModal";
 import { deleteHistoryImageDataByURL, getHistoryImageData } from "../../models/firebaseModel";
 
-// 定义接口类型
+// define the interface type
 interface ImageType {
   src: string;
 }
@@ -18,7 +18,7 @@ const ProjectHistory: React.FC = () => {
     if (selectedImage) {
       deleteHistoryImageDataByURL(selectedImage)
         .then(() => {
-          // 删除后更新列表
+          // update the image list after deleting the image
           setImageList((prevList) => prevList.filter((image) => image.src !== selectedImage));
           setSelectedImage(null);
           onClose();

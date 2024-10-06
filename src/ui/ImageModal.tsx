@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "@nextui-org/react";
 
-// 定义组件 Props 的类型
+// define the props type
 interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;

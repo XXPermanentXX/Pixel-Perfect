@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Link } from "@nextui-org/react";
-import { downloadIcon } from "../assets";  // 确保下载图标路径正确
+import { downloadIcon } from "../assets";  // ensure the path correct
 
-// 定义组件 Props 的类型
+// define interface type
 interface DownloadButtonProps {
   imageUrl: string;
 }
