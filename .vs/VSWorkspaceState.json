@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\features",
+    "\\src\\features\\generate",
+    "\\src\\features\\generate\\choose-product",
+    "\\src\\features\\generate\\project-history",
+    "\\src\\styles",
+    "\\src\\types",
+    "\\src\\ui"
+  ],
+  "SelectedNode": "\\src\\ui\\DownloadButton.tsx",
+  "PreviewInSolutionExplorer": false
+}
