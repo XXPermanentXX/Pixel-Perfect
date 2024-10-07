@@ -24,4 +24,11 @@
   section {
     @apply py-16;
   }
+  :root {
+    background-color: #141619;
+  }
+  .bg-generate-page {
+    @apply bg-[url('@/assets/background/bg-generate-page.png')] bg-cover bg-center;
+  }
+
 }

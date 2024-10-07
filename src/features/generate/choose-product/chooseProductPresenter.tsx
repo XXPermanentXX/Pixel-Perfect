@@ -3,15 +3,15 @@ import ChooseProductView from "./chooseProductView";
 const mockProducts = [
   {
     name: "Product 1",
-    thumbnail: "https://via.placeholder.com/200",
+    thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
   },
   {
     name: "Product 2",
-    thumbnail: "https://via.placeholder.com/200",
+    thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
   },
   {
     name: "Product 3",
-    thumbnail: "https://via.placeholder.com/200",
+    thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
   },
 ];
 

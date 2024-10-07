@@ -7,7 +7,7 @@ const GeneratePage = () => {
       {/* Content */}
       <div className="h-screen flex-1">
         <Routes>
-          <Route path="model" element={<ChooseProduct />} />
+          <Route path="/" element={<ChooseProduct />} />
         </Routes>
       </div>
     </div>

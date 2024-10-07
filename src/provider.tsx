@@ -11,7 +11,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
 
   return (
     <ReduxProvider store={store}>
-      <NextUIProvider navigate={navigate}>{children}</NextUIProvider>
+      <NextUIProvider className="min-w-[1024px] antialiased  before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:-z-50 before:bg-dark-bg" navigate={navigate}>{children}</NextUIProvider>
     </ReduxProvider>
   );
 }
