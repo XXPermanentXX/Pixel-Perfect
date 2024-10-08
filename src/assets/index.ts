@@ -15,3 +15,6 @@ export { default as cartoonStyle } from "./styles/cartoon.jpeg";
 export { default as cinematicStyle } from "./styles/cinematic.jpg";
 export { default as illustrationStyle } from "./styles/illustration.png";
 export { default as realisticStyle } from "./styles/realistic.jpg";
+
+// Icons
+export { default as downloadIcon } from "./icon/icon-download.svg";
