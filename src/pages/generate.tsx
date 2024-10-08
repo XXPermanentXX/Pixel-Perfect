@@ -1,4 +1,5 @@
-import ChooseProduct from "@/features/generate/choose-product/chooseProductPresenter";
+
+import GenerateImage from "@/features/generate/generate-image/GenerateImagePresenter";
 import { Route, Routes } from "react-router-dom";
 
 const GeneratePage = () => {
@@ -7,7 +8,7 @@ const GeneratePage = () => {
       {/* Content */}
       <div className="h-screen flex-1">
         <Routes>
-          <Route path="/" element={<ChooseProduct />} />
+          <Route path="/" element={<GenerateImage />} />
         </Routes>
       </div>
     </div>

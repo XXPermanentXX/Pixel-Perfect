@@ -1,5 +1,6 @@
 export const BASE_URL = "https://pixel-backend.azurewebsites.net/api";
 export const API_KEY = "37ee0b9955c44f1c8769583cd56605618a31471781e046f49aa41c726b0c425c"
+export const WS_URL = "wss://pixel-backend.azurewebsites.net/ws";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBg-FVbk801QvRXZS7Ob8T90YH8ue2QbGg",

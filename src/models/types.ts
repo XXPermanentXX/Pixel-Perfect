@@ -9,8 +9,10 @@ export interface ModelItem {
   id: string;
   name: string;
   thumbnail: string;
-  lora_model_name: string; 
+  lora_model_name: string;
+  product_type: string; 
   trigger_word: string;
+  user_id: string;
 }
 
 export interface AspectRatio {

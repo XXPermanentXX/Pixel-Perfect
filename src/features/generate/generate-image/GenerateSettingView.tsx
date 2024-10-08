@@ -1,5 +1,5 @@
 import { Button, Tab, Tabs, Textarea } from "@nextui-org/react";
-import  { useRef } from "react";
+import  { SetStateAction, useRef } from "react";
 import ImageSelect from "@/ui/ImageSelect";
 import { AspectRatio, Status, ModelItem, Prompt, StyleItem } from "@/models/types";
 
@@ -8,12 +8,13 @@ interface GenerateSettingViewProps {
   productList: ModelItem[];
   styleList: StyleItem[];
   aspectRatioList: AspectRatio[];
-  setPromptRequest: (request: Partial<Prompt>) => void;
+  promptRequest: Prompt;
+  setPromptRequest: (request: SetStateAction<Prompt>) => void;
   handleGenerate: () => void;
   generateStatus: Status;
 }
 
-const GenerateSettingView = ({ productList, styleList, aspectRatioList, setPromptRequest, handleGenerate, generateStatus }:GenerateSettingViewProps) => {
+const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRequest,setPromptRequest, handleGenerate, generateStatus }:GenerateSettingViewProps) => {
   const aspectRatioRender = aspectRatioList.map((aspectRatio) => {
     return <Tab key={aspectRatio.id} title={aspectRatio.title} />;
   });
@@ -22,7 +23,6 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, setPromp
   const productModel=productList[0].name
   const imageStyle=styleList[0].name
   const aspectRatio=aspectRatioList[0].title
-  const promptText=''
 
   return (
     <div className="flex w-full flex-col gap-6">
@@ -37,9 +37,9 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, setPromp
             placeholder="How do you imagine your product being used?"
             variant="bordered"
             disableAutosize
-            value={promptText}
+            value={promptRequest.prompt}
             onValueChange={(val) => {
-              setPromptRequest({ prompt: val });
+              setPromptRequest((prev)=>({...prev, prompt: val }));
             }}
             classNames={{
               input: "resize-y min-h-[178px] group-data-[has-value=true]:text-white text-[18px]",
@@ -60,7 +60,7 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, setPromp
             aria-label="Tabs variants"
             selectedKey={aspectRatio}
             onSelectionChange={(key) => {
-              setPromptRequest({ aspectRatio: key as string });
+              setPromptRequest((prev)=>({...prev, aspectRatio: key as string }));
             }}
           >
             {aspectRatioRender}

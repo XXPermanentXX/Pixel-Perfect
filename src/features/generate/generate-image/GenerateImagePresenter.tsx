@@ -1,121 +1,153 @@
-// GenereteImagePresenter.tsx
 import React, { useEffect, useState } from "react";
-import GenerateSettingView from "@features/generate/generate-image/GenerateSettingView";
-import GenerateResultsView from "@features/generate/generate-image/GenerateResultsView";
-import { Button, Divider, useDisclosure } from "@nextui-org/react";
-import { backIcon } from "@/assets";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { aspectRatioList, initialPrompt, styleList } from "@/models/staticDataModel";
+import GenerateSettingView from "./GenerateSettingView";
+import GenerateResultsView from "./GenerateResultsView";
+import { Divider } from "@nextui-org/react";
 import {
-  generateImage,
-  setSidebarExpended,
-  setPromptRequest,
-  uploadPromptRequest,
-  deleteReferImageSrc,
-} from "@/models/generateSlice";
-import ImageModal from "@/ui/ImageModal";
+  aspectRatioList,
+  styleList,
+  initialPrompt,
+} from "@/models/staticDataModel";
+import { ModelItem } from "@/models/types";
+import { WS_URL } from "@/models/apiConfig";
 
-//define the interface type
-interface RootState {
-    generate: {
-      productsData: any[];
-      generateStatus: string;
-      generatedImages: string[];
-      loaderText: string;
-      promptRequest: any;
-    };
-}
-
-const GeneratePicture: React.FC = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [progressText, setProgressText] = useState<{ value: number; text: string }>({
+const GenerateImage: React.FC = () => {
+  const [promptRequest, setPromptRequest] = useState(initialPrompt);
+  const [generatedImages, setGeneratedImages] = useState<
+    { imageUrl: string }[]
+  >([]);
+  const [generateStatus, setGenerateStatus] = useState<
+    "idle" | "loading" | "succeeded" | "failed"
+  >("idle");
+  const [eventText,setEventText]=useState<string>("")
+  const [progressText, setProgressText] = useState<{
+    value: number;
+    text: string;
+  }>({
     value: 0,
     text: "",
   });
 
-  const productList = useSelector((state: RootState) => state.generate.productsData);
-  const generateStatus = useSelector((state: RootState) => state.generate.generateStatus);
-  const generatedImages = useSelector((state: RootState) => state.generate.generatedImages);
-  const loaderText = useSelector((state: RootState) => state.generate.loaderText);
-  const promptRequest = useSelector((state: RootState) => state.generate.promptRequest);
-
-  const setPrompt = (value: Partial<typeof promptRequest>) => {
-    dispatch(setPromptRequest(value));
-    dispatch(uploadPromptRequest({ ...promptRequest, ...value }));
-  };
+  // Mocking productList for demonstration purpose
+  const productList: ModelItem[] = [
+    {
+      id: "7b89ed7d-129b-4d35-a845-be0f2b08782f",
+      lora_model_name: "lv-000009.safetensors",
+      name: "Louis Vuitton Bag",
+      product_type: "Ladies Bag",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/lv_bag.png",
+      trigger_word: "black lv bag",
+      user_id: "admin",
+    },
+    {
+      id: "7b89ed7d-129b-4d35-a745-be0ffb08582f",
+      lora_model_name: "cro-000012.safetensors",
+      name: "Croissant",
+      product_type: "Croissant",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/croissant.jpeg",
+      trigger_word: "cro croissant",
+      user_id: "admin",
+    },
+    {
+      id: "7b89gf7d-129b-4d35-a745-be0ffb05682d",
+      lora_model_name: "avr-000015.safetensors",
+      name: "Apple Vision Pro",
+      product_type: "VR Headset",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/vison_pro.png",
+      trigger_word: "avr Virtual Reality Headset",
+      user_id: "admin",
+    },
+    {
+      id: "7b89gf7d-129b-476y-a734-be0ffb051dl8",
+      lora_model_name: "tbl-000042.safetensors",
+      name: "Timberland Shoes",
+      product_type: "Shoes",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/timberland.png",
+      trigger_word: "tbl Timberland boots",
+      user_id: "admin",
+    },
+  ];
 
   const handleGenerate = () => {
-    dispatch(generateImage());
-    console.log("Generate Picture");
+    setGenerateStatus("loading");
+    setProgressText({ value: 0, text: "Connecting to the GPU..." });
+
+    const generationSeed = Math.floor(Math.random() * 0xffffffffffffffff);
+    const sendPrompt = {
+      ...promptRequest,
+      generationSeed,
+    };
+
+    const ws = new WebSocket(WS_URL);
+    console.log("Connecting to websocket server...");
+
+    ws.onerror = (error) => {
+      console.error("Error connecting to websocket server", error);
+      setGenerateStatus("failed");
+    };
+
+    ws.onopen = () => {
+      console.log("Connected to websocket server");
+      ws.send(JSON.stringify(sendPrompt));
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        console.log(`Message received: ${event.data}`);
+        const response = JSON.parse(event.data);
+        const imageUrls = response.map((image: string) => ({
+          imageUrl: image,
+        }));
+        setGeneratedImages(imageUrls);
+        setGenerateStatus("succeeded");
+      } catch (e) {
+        setGenerateStatus("loading");
+        setEventText(event.data);
+      }
+    };
   };
 
-  const handleBack = () => {
-    setPrompt(initialPrompt);
-    dispatch(setSidebarExpended(true));
-    dispatch(deleteReferImageSrc());
-    navigate("/generate/model");
-  };
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const openModal = (imageSrc: string) => {
-    console.log("Open modal with image: ", imageSrc);
-    setSelectedImage(imageSrc);
-    onOpen();
-  };
-
-  // loaderText and progressText are used to show the progress of image generation
   useEffect(() => {
-    if (loaderText === "Connecting to the GPU...") {
+    if (eventText === "Connecting to the GPU...") {
       setProgressText({
         value: 0,
         text: "Connecting to the GPU...",
       });
-    } else if (loaderText.startsWith("Image generation at")) {
-      // regex to extract the percentage from the loaderText, same for the following conditions
-      const match = loaderText.match(/(\d+\.\d+)%/);
-      const percentage = match ? parseFloat(match[1]) / 100 : 0;
+    } else if (eventText.startsWith("Image generation at")) {
+      const matchResult = eventText.match(/(\d+\.\d+)%/);
+      const percentage = matchResult ? parseFloat(matchResult[1]) / 100 : 0;
       setProgressText({
         value: percentage,
         text: "Generating based on your requirements...",
       });
-    } else if (loaderText.startsWith("Refining the image")) {
-      const match = loaderText.match(/(\d+\.\d+)%/);
-      const percentage = match ? parseFloat(match[1]) / 100 : 0;
+    } else if (eventText.startsWith("Refining the image")) {
+      const matchResult = eventText.match(/(\d+\.\d+)%/);
+      const percentage = matchResult ? parseFloat(matchResult[1]) / 100 : 0;
       setProgressText({
         value: percentage,
         text: "Refining the image...",
       });
-    } else if (loaderText.startsWith("Images are ready")) {
+    } else if (eventText.startsWith("Images are ready")) {
       setProgressText({
         value: 1,
         text: "Images are ready, uploading to the cloud...",
       });
     }
-  }, [loaderText]);
+  }, [generateStatus,eventText]);
 
   return (
-    <div className="h-full w-full flex-col pb-[60px]">
-      <div className="flex h-[100px] items-center pl-[50px]">
-        <Button
-          variant="light"
-          size="lg"
-          startContent={<img src={backIcon} alt="back" />}
-          onClick={handleBack}
-        >
-          BACK
-        </Button>
-      </div>
-      <div className="flex h-[calc(100%-100px)] w-full">
+    <div className="h-full w-full flex-col p-[60px]">
+      <div className="flex h-[calc(100%)] w-full">
         <div className="flex w-1/3 min-w-[420px] max-w-[600px] pl-[50px] pr-[10px]">
           <GenerateSettingView
             productList={productList}
             styleList={styleList}
             aspectRatioList={aspectRatioList}
-            setPromptRequest={setPrompt}
+            promptRequest={promptRequest}
+            setPromptRequest={setPromptRequest}
             handleGenerate={handleGenerate}
             generateStatus={generateStatus}
           />
@@ -126,13 +158,9 @@ const GeneratePicture: React.FC = () => {
             generateStatus={generateStatus}
             progressText={progressText}
             imageList={generatedImages}
-            openModal={openModal}
-          />
-          <ImageModal
-            isOpen={isOpen}
-            onClose={onClose}
-            imageSrc={selectedImage}
-            showDeleteButton={false}
+            openModal={(imageUrl: string) =>
+              console.log("Open modal with image:", imageUrl)
+            }
           />
         </div>
       </div>
@@ -140,4 +168,4 @@ const GeneratePicture: React.FC = () => {
   );
 };
 
-export default GeneratePicture;
+export default GenerateImage;
