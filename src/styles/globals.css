@@ -27,8 +27,40 @@
   :root {
     background-color: #141619;
   }
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
   .bg-generate-page {
-    @apply bg-[url('@/assets/background/bg-generate-page.png')] bg-cover bg-center;
+    @apply bg-[url('../src/assets/background/bg-generate-page.png')] bg-cover bg-center;
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(to right, #ff3bff 0%, #ecbfbf 30%, #5c24ff 80%, #d94fd5 100%);
+  }
+  .button-gradient {
+    background-image: linear-gradient(to right, #ff3bff 0%, #4a46ff 54%, #231fee 100%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(209, 213, 219, 0.15);
+    border-radius: 3px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    scrollbar-width: thin;
   }
 
 }
