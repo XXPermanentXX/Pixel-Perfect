@@ -3,10 +3,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import generateReducer from "@/models/generateSlice";
+import projectHistoryReducer from "@/models/projectHistorySlice";
 
 const store = configureStore({
   reducer: {
     generate: generateReducer,
+    projectHistory: projectHistoryReducer,
   },
 });
 export function Provider({ children }: { children: React.ReactNode }) {

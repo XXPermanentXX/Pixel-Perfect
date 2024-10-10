@@ -20,6 +20,11 @@ export interface AspectRatio {
   title: string;
 }
 
+export interface GeneratedImage {
+  id: string;
+  src: string;
+}
+
 export interface Prompt {
   prompt: string;
   keywords: string[];
