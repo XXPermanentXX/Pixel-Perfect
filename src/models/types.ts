@@ -22,7 +22,8 @@ export interface AspectRatio {
 
 export interface GeneratedImage {
   id: string;
-  src: string;
+  date: Date;
+  url: string;
 }
 
 export interface Prompt {

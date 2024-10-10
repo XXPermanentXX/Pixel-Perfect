@@ -3,6 +3,7 @@ import { API_KEY, BASE_URL, WS_URL } from "./apiConfig";
 import { INITIAL_PROMPT, STYLE_LIST } from "./staticDataModel";
 import { ProductsItem, Prompt, Status } from "./types";
 import { mapPromptToSettings } from "@/utilities";
+import { setHistoryImageData } from "./firebaseModel";
 
 interface GenerateState {
   loaderText: string;
@@ -64,7 +65,7 @@ export const generateImage = createAsyncThunk(
           console.log(`Message received: ${event.data}`);
           const response = JSON.parse(event.data);
           const imageUrls = response.map((image: any) => ({ imageUrl: image }));
-          // setHistoryImageData(imageUrls);  TODO
+          setHistoryImageData(imageUrls);
           resolve(imageUrls);
         } catch (e) {
           dispatch(updateLoaderText(event.data));
