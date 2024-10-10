@@ -1,4 +1,4 @@
-import { AspectRatio, Prompt, StyleItem } from "./types";
+import { AspectRatio, Prompt, StyleItem } from "./static-data/types";
 import { realisticStyle, cartoonStyle, cinematicStyle } from "@/assets";
 
 const styleList: StyleItem[] = [

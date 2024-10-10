@@ -7,7 +7,7 @@ import {
   styleList,
   initialPrompt,
 } from "@/models/staticDataModel";
-import { ModelItem } from "@/models/types";
+import { ProductsItem } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
 
 const GenerateImage: React.FC = () => {
@@ -28,7 +28,7 @@ const GenerateImage: React.FC = () => {
   });
 
   // Mocking productList for demonstration purpose
-  const productList: ModelItem[] = [
+  const productList: ProductsItem[] = [
     {
       id: "7b89ed7d-129b-4d35-a845-be0f2b08782f",
       lora_model_name: "lv-000009.safetensors",

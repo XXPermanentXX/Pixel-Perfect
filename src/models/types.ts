@@ -5,7 +5,7 @@ export interface StyleItem {
   keywords: string;
 }
 
-export interface ModelItem {
+export interface ProductsItem {
   id: string;
   name: string;
   thumbnail: string;
