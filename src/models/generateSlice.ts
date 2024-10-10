@@ -1,18 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_KEY, BASE_URL, WS_URL } from "./apiConfig";
-import { initialPrompt } from "./staticDataModel";
+import { INITIAL_PROMPT, STYLE_LIST } from "./staticDataModel";
 import { ProductsItem, Prompt, Status } from "./types";
+import { mapPromptToSettings } from "@/utilities";
 
 interface GenerateState {
-  productsData: Array<ProductsItem>; // 根据实际数据结构替换 'any'
+  loaderText: string;
+  productsData: Array<ProductsItem>;
   productStatus: Status;
-  promptRequest: Prompt; // 你已经定义的 initialPrompt 的类型
+  promptRequest: Prompt;
+  generateStatus: Status;
+  generateSettings: {
+    productModel: string;
+    promptText: string;
+    imageStyle: string;
+    aspectRatio: string;
+  }
 }
 
 const initialState: GenerateState = {
+  loaderText: "",
   productsData: [],
   productStatus: "idle",
-  promptRequest: initialPrompt,
+  promptRequest: INITIAL_PROMPT,
+  generateStatus: "idle",
+  generateSettings: {
+    productModel: "",
+    promptText: "",
+    imageStyle: "",
+    aspectRatio: "",
+  },
 };
 
 export const generateImage = createAsyncThunk(
@@ -31,7 +48,7 @@ export const generateImage = createAsyncThunk(
       ws.onerror = (error) => {
         console.error("Error connecting to websocket server", error);
         setTimeout(() => {
-          // dispatch(updateLoaderText("Error connecting to websocket server")); TODO
+          dispatch(updateLoaderText("Error connecting to websocket server"));
           reject(rejectWithValue("Error connecting to websocket server"));
         }, 1000);
       };
@@ -50,7 +67,7 @@ export const generateImage = createAsyncThunk(
           // setHistoryImageData(imageUrls);  TODO
           resolve(imageUrls);
         } catch (e) {
-          // dispatch(updateLoaderText(event.data)); TODO
+          dispatch(updateLoaderText(event.data));
         }
       };
     });
@@ -77,6 +94,25 @@ const generateSlice = createSlice({
       state.productsData = [];
       state.productStatus = "idle";
     },
+    setPromptRequest(state, action) {
+      const prompt = {
+        ...state.promptRequest,
+        ...action.payload,
+      };
+      state.promptRequest = prompt;
+      state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
+      console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
+    },
+    setLocalGenerateSetting: (state, action) => {
+      state.generateSettings = {
+        ...state.generateSettings,
+        ...action.payload,
+      };
+    },
+    updateLoaderText: (state, action) => {
+      state.loaderText = action.payload;
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -94,5 +130,5 @@ const generateSlice = createSlice({
   },
 });
 
-export const { initialProductState } = generateSlice.actions;
+export const { initialProductState, updateLoaderText, setPromptRequest, setLocalGenerateSetting } = generateSlice.actions;
 export default generateSlice.reducer;

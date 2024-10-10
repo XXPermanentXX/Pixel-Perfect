@@ -3,15 +3,15 @@ import GenerateSettingView from "./GenerateSettingView";
 import GenerateResultsView from "./GenerateResultsView";
 import { Divider } from "@nextui-org/react";
 import {
-  aspectRatioList,
-  styleList,
-  initialPrompt,
+  ASPECT_RATIO_LIST,
+  INITIAL_PROMPT,
+  STYLE_LIST ,
 } from "@/models/staticDataModel";
 import { ProductsItem } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
 
 const GenerateImage: React.FC = () => {
-  const [promptRequest, setPromptRequest] = useState(initialPrompt);
+  const [promptRequest, setPromptRequest] = useState(INITIAL_PROMPT);
   const [generatedImages, setGeneratedImages] = useState<
     { imageUrl: string }[]
   >([]);
@@ -144,8 +144,8 @@ const GenerateImage: React.FC = () => {
         <div className="flex w-1/3 min-w-[420px] max-w-[600px] pl-[50px] pr-[10px]">
           <GenerateSettingView
             productList={productList}
-            styleList={styleList}
-            aspectRatioList={aspectRatioList}
+            styleList={STYLE_LIST}
+            aspectRatioList={ASPECT_RATIO_LIST}
             promptRequest={promptRequest}
             setPromptRequest={setPromptRequest}
             handleGenerate={handleGenerate}

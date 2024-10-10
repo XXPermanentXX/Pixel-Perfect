@@ -1,10 +1,15 @@
+import { ProductsItem, Prompt, StyleItem } from "./models/types";
+
 /**
  * download the image and save as the given filename
  * @param src image URL
- * @param filename （optional, default: "generated_image.png"）
+ * @param filename （optional, default: "downloaded-image.png"）
  */
-const downloadImage = (src: string, filename: string = "generated_image.png"): void => {
-  // new an element <a> 
+const downloadImage = (
+  src: string,
+  filename: string = "downloaded-image.png"
+): void => {
+  // new an element <a>
   const link = document.createElement("a");
   link.href = src; // set image URL
   link.download = filename; // set download filename
@@ -17,4 +22,22 @@ const downloadImage = (src: string, filename: string = "generated_image.png"): v
   document.body.removeChild(link);
 };
 
-export { downloadImage };
+const mapPromptToSettings = (
+  prompt: Prompt,
+  productList: ProductsItem[],
+  styleList: StyleItem[]
+) => {
+  const product = productList.find(
+    (product) => product.lora_model_name === prompt.model
+  );
+  const keywords = prompt.keywords.join(",");
+  const style = styleList.find((style) => style.keywords === keywords);
+  return {
+    productModel: product ? product.name : "",
+    promptText: prompt.prompt,
+    imageStyle: style ? style.name : "",
+    aspectRatio: prompt.aspectRatio,
+  };
+};
+
+export { mapPromptToSettings, downloadImage };
