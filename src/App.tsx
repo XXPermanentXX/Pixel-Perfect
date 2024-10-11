@@ -1,12 +1,52 @@
-import { Route, Routes } from "react-router-dom";
-import GeneratePage from "./pages/generate";
+import React, { useEffect, lazy, Suspense } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
+import Home from "./pages/Home";
+import RequestDemo from "./pages/RequestDemo";
+import LoginPage from "./pages/Login";
 
-function App() {
+//todo
+const GeneratePage = lazy(() => import("./pages/Generate"));
+
+
+const App: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Regular expression to check if the path starts with "/generate/model"
+    const pattern = /^\/generate\/model(?:\/|$)/;
+
+    // Apply 'overflow: hidden' to fix image upload layout issues in GenerateSettingView
+    if (pattern.test(location.pathname)) {
+      document.body.style.overflow = "hidden";
+    } else {
+      // Revert overflow to normal for other pages
+      document.body.style.overflow = "auto";
+    }
+  }, [location]);
+
   return (
-    <Routes>
-      <Route path="/*" element={<GeneratePage />} />
-    </Routes>
+    <NextUIProvider className="min-w-[1024px] antialiased  before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:-z-50 before:bg-dark-bg" navigate={navigate}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/request-demo" element={<RequestDemo />} />
+          <Route
+            path="/generate/*"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                {/* todo */}
+                  <GeneratePage />
+
+              </Suspense>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Suspense>
+    </NextUIProvider>
   );
-}
+};
 
 export default App;
