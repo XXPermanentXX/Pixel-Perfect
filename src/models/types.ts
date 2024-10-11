@@ -5,7 +5,7 @@ export interface StyleItem {
   keywords: string;
 }
 
-export interface ModelItem {
+export interface ProductsItem {
   id: string;
   name: string;
   thumbnail: string;
@@ -18,6 +18,12 @@ export interface ModelItem {
 export interface AspectRatio {
   id: string;
   title: string;
+}
+
+export interface GeneratedImage {
+  id: string;
+  date: Date;
+  url: string;
 }
 
 export interface Prompt {

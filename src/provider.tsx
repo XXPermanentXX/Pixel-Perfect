@@ -2,12 +2,17 @@ import { NextUIProvider } from "@nextui-org/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
+import generateReducer from "@/models/generateSlice";
+import projectHistoryReducer from "@/models/projectHistorySlice";
 
+const store = configureStore({
+  reducer: {
+    generate: generateReducer,
+    projectHistory: projectHistoryReducer,
+  },
+});
 export function Provider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const store = configureStore({
-    reducer: {},
-  });
 
   return (
     <ReduxProvider store={store}>
@@ -15,3 +20,5 @@ export function Provider({ children }: { children: React.ReactNode }) {
     </ReduxProvider>
   );
 }
+
+export type RootState = ReturnType<typeof store.getState>;

@@ -1,7 +1,7 @@
-import { AspectRatio, Prompt, StyleItem } from "./types";
+import { AspectRatio, Prompt, StyleItem } from "./static-data/types";
 import { realisticStyle, cartoonStyle, cinematicStyle } from "@/assets";
 
-const styleList: StyleItem[] = [
+const STYLE_LIST: StyleItem[] = [
   {
     id: "realistic",
     name: "Realistic",
@@ -22,7 +22,7 @@ const styleList: StyleItem[] = [
   },
 ];
 
-const aspectRatioList: AspectRatio[] = [
+const ASPECT_RATIO_LIST: AspectRatio[] = [
   {
     id: "1:1",
     title: "1:1",
@@ -37,7 +37,7 @@ const aspectRatioList: AspectRatio[] = [
   },
 ];
 
-const initialPrompt: Prompt = {
+const INITIAL_PROMPT: Prompt = {
   prompt: "",
   keywords: ["4k", " hdr", " realistic", " high resolution", " <lora:MG52:0.8>"],
   aspectRatio: "",
@@ -51,4 +51,4 @@ const initialPrompt: Prompt = {
   refine: true,
 };
 
-export { styleList, aspectRatioList, initialPrompt };
+export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT };
