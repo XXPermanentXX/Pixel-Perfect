@@ -5,7 +5,7 @@ interface FeatureVideoCardProps {
   videoUrl: string;
   title: string;
   description: string;
-  videoOnLeft?: boolean; /
+  videoOnLeft?: boolean; 
 }
 
 const FeatureVideoCard: React.FC<FeatureVideoCardProps> = ({ videoUrl, title, description, videoOnLeft = true }) => {

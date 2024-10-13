@@ -4,6 +4,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import Home from "./pages/Home";
 import RequestDemo from "./pages/RequestDemo";
 import LoginPage from "./pages/Login";
+import ProtectedRoute from "./features/auth/ProtectedRoute";
 
 //todo
 const GeneratePage = lazy(() => import("./pages/Generate"));
@@ -37,8 +38,9 @@ const App: React.FC = () => {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 {/* todo */}
+                {/* <ProtectedRoute> */}
                   <GeneratePage />
-
+                {/* </ProtectedRoute> */}
               </Suspense>
             }
           />
