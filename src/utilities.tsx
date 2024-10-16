@@ -1,4 +1,4 @@
-import { ProductsItem, Prompt, StyleItem } from "./models/types";
+import { ProductsItem, Prompt, StyleItem } from "./store/models/types";
 
 /**
  * download the image and save as the given filename

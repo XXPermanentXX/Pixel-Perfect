@@ -6,9 +6,9 @@ import {
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,
   STYLE_LIST ,
-} from "@/models/staticDataModel";
-import { ProductsItem } from "@/models/types";
-import { WS_URL } from "@/models/apiConfig";
+} from "@/store/models/staticDataModel";
+import { ProductsItem } from "@/store/models/types";
+import { WS_URL } from "@/store/models/apiConfig";
 
 const GenerateImage: React.FC = () => {
   const [promptRequest, setPromptRequest] = useState(INITIAL_PROMPT);

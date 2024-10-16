@@ -1,6 +1,6 @@
 import { CircularProgress, Link } from "@nextui-org/react";
 import DownloadButton from "../../../ui/DownloadButton";
-import { Status } from "@/models/types";
+import { Status } from "@/store/models/types";
 
 interface GenerateResultsViewProps {
   generateStatus: Status;

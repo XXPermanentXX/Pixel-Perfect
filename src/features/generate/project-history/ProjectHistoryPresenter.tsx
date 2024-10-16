@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProjectHistoryView from "@/features/generate/project-history/ProjectHistoryView";
 import { useDisclosure } from "@nextui-org/react";
 import ImageModal from "@/ui/ImageModal";
-import { deleteHistoryImageDataByURL, getHistoryImageData } from "@/models/firebaseModel";
+import { deleteHistoryImageDataByURL, getHistoryImageData } from "@/store/models/firebaseModel";
 
 
 // define the interface type

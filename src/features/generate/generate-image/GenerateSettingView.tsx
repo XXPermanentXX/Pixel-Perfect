@@ -1,7 +1,7 @@
 import { Button, Tab, Tabs, Textarea } from "@nextui-org/react";
 import  { SetStateAction, useRef } from "react";
 import ImageSelect from "@/ui/ImageSelect";
-import { AspectRatio, Status, ProductsItem, Prompt, StyleItem } from "@/models/types";
+import { AspectRatio, Status, ProductsItem, Prompt, StyleItem } from "@/store/models/types";
 
 
 interface GenerateSettingViewProps {

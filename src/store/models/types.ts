@@ -40,4 +40,16 @@ export interface Prompt {
   refine: boolean;
 }
 
+export interface formState {
+  username: string;
+  password: string;
+}
+
+export interface AuthState {
+  adminKey: string | null;
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  error: string | null | undefined;
+}
+
 export type Status = "idle" | "loading" | "succeeded" | "failed";

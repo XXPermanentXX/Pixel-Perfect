@@ -2,8 +2,8 @@ import { NextUIProvider } from "@nextui-org/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import generateReducer from "@/models/generateSlice";
-import projectHistoryReducer from "@/models/projectHistorySlice";
+import generateReducer from "@/store/models/generateSlice";
+import projectHistoryReducer from "@/store/models/projectHistorySlice";
 
 const store = configureStore({
   reducer: {

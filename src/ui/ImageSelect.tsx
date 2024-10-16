@@ -1,7 +1,7 @@
 import { SetStateAction, useState } from "react";
 import { Image, Select, SelectItem } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { Prompt } from "@/models/types";
+import { Prompt } from "@/store/models/types";
 
 interface ModelItem {
   id: string;

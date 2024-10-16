@@ -2,14 +2,18 @@ import {  Input } from "@nextui-org/react"
 
 interface FormInputProps {
     label:string,
+    value:string,
+    onValueChange: (value)=>{value}
 }
 
-const FormInput: React.FC<FormInputProps> = ({label}) => {
+const FormInput: React.FC<FormInputProps> = ({label,value}) => {
     return (
         <div className="h-[80px] w-full">
             <Input 
                 isRequired
                 label={label}
+                value={value}
+                onValueChange={onValueChange}
                 radius="sm"
                 variant="bordered"
                 classNames={{
