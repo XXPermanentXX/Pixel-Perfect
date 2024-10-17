@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/store/models/apiConfig";
+import { BASE_URL } from "@/models/apiConfig";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AuthState, formState } from "./types";
 
@@ -32,7 +32,7 @@ export const validateLogin = createAsyncThunk<string,formState,{ rejectValue: st
             }
             const data = await res.json();
 
-            if (!data.succes) {
+            if (!data.success) {
                 const errorMessage = 
                     data.messgae === "Invalid credentials provided. Access denied."
                         ? "The username or password is incorrect."
