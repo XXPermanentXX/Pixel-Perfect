@@ -16,5 +16,11 @@ export { default as cinematicStyle } from "./styles/cinematic.jpg";
 export { default as illustrationStyle } from "./styles/illustration.png";
 export { default as realisticStyle } from "./styles/realistic.jpg";
 
+
+// Background blobs for decorative purposes
+export { default as bgBigBlob } from "./background/bg-big-blob.png";
+export { default as bgSmallBlob } from "./background/bg-small-blob.png";
+
+
 // Icons
 export { default as downloadIcon } from "./icon/icon-download.svg";

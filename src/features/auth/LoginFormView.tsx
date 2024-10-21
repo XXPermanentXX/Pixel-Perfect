@@ -39,7 +39,7 @@ const LoginFormView: React.FC<LoginFormViewProps> = ({formState,fieldValidity, o
                         errorMessage={"Please enter your username"}
                     />
                     <FormInput 
-                        type="text" 
+                        type={isVisible ? "text" : "password"} 
                         label="password" 
                         value={password} 
                         onValueChange={onInputChange("password")}

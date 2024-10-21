@@ -1,6 +1,7 @@
 import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import React from "react";
 import {  useLocation } from "react-router-dom";
+import RequestButton from "./RequestButton";
 
 
 
@@ -13,21 +14,24 @@ const NavigationBar: React.FC = () => {
             id="navbar"
             position="static"
             isBlurred={false}
-// todo
+            classNames={{
+                base: ["bg-transparent py-2"],
+                wrapper: ["max-w-7xl"]
+            }}
         >
             <NavbarBrand as={Link} href="/">
-            <h4 className="ml-4">PixelPerfect AI</h4>
+                
+                <h4 className="ml-4">PixelPerfect AI</h4>
             </NavbarBrand>
             <NavbarContent justify="end">
-                <NavbarItem >
-                    <NavbarItem>
+                    <NavbarItem className="space-x-8">
                         {location.pathname === "/" && (
                             <Link href="/login" size="lg" color="foreground">
-                                login
+                                Log in
                             </Link>
                         )}
+                        {location.pathname !== "/request-demo" && <RequestButton />}
                     </NavbarItem>
-                </NavbarItem>
             </NavbarContent>
         </Navbar>
     )
