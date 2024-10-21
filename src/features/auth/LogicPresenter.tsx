@@ -7,7 +7,7 @@ import { initialStateFromCookie, clearError, validateLogin } from "@/models/auth
 import { AppDispatch } from "@/provider";
 
 const LoginComponent: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["admin_key"]);
 
@@ -85,10 +85,8 @@ const LoginComponent: React.FC = () => {
 
     // Check if all fields in the form are valid.
     const isFormValid = Object.values(updatedFieldValidity).every((value) => value);
-    // use Appdispatch
-    const appdispatch = useDispatch<AppDispatch>();
     if (isFormValid) {
-      appdispatch(validateLogin(formState));
+      dispatch(validateLogin(formState));
     }
   };
 
