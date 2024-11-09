@@ -31,6 +31,10 @@
     -webkit-background-clip: text;
     background-clip: text;
   }
+
+  .bg-image {
+    @apply pointer-events-none absolute -z-10 overflow-visible object-none;
+  }
   
   .bg-generate-page {
     @apply bg-[url('../src/assets/background/bg-generate-page.png')] bg-cover bg-center;

@@ -2,6 +2,7 @@ import NavigationBar from "@/ui/NavigationBar";
 import { useEffect } from "react";
 import { bgBigBlob } from "@/assets";
 import RequestButton from "@/ui/RequestButton";
+import Carousel from "@/features/carousel/CarouselPresenter";
 
 const HomePage = () => {
   // Scroll to top when component mounts
@@ -15,7 +16,7 @@ const HomePage = () => {
         <div className="flex flex-col items-center justify-center text-center">
           {/* hero section with slogans */}
           <section id="hero" className="relative">
-            <img src={bgBigBlob} alt="Decoratvive Background Blob" className="bg-imge ctop-0 translate-y-1/2" />
+            <img src={bgBigBlob} alt="Decoratvive Background Blob" className="bg-image top-0 translate-y-1/2" />
             <div className="pb-6">
               <h1 className="pb-2">Instant Markeing Content</h1>
               <h1 className="text-gradient bg-clip-text font-bold text-transparent">Professional At Low Cost</h1>
@@ -27,6 +28,13 @@ const HomePage = () => {
             </h5>
             <RequestButton />
           </section>
+          
+          {/* Carousel component */}
+          <div className=" h-[377px] w-full">
+            <Carousel />
+          </div>
+
+          
         </div>
       </div>
     );
