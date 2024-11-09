@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { bgBigBlob } from "@/assets";
 import RequestButton from "@/ui/RequestButton";
 import Carousel from "@/features/carousel/CarouselPresenter";
+import { carouselImages } from "@/models/staticDataModel";
 
 const HomePage = () => {
   // Scroll to top when component mounts
@@ -31,7 +32,7 @@ const HomePage = () => {
           
           {/* Carousel component */}
           <div className=" h-[377px] w-full">
-            <Carousel />
+            <Carousel carouselImage={carouselImages}/>
           </div>
 
           

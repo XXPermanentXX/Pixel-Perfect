@@ -1,5 +1,9 @@
 import { AspectRatio, Prompt, StyleItem } from "./types";
-import { realisticStyle, cartoonStyle, cinematicStyle } from "@/assets";
+import { realisticStyle, cartoonStyle, cinematicStyle, image1, image2, image4, image5, image6, image7, image8, image3 } from "@/assets";
+
+
+// List of images for the carousel
+const carouselImages = [image1, image2, image3, image4, image5, image6, image7, image8];
 
 const STYLE_LIST: StyleItem[] = [
   {
@@ -21,6 +25,9 @@ const STYLE_LIST: StyleItem[] = [
     keywords: "good lighting, studio, (photoshoot:1.4), professional, 4k",
   },
 ];
+
+
+
 
 const ASPECT_RATIO_LIST: AspectRatio[] = [
   {
@@ -51,4 +58,4 @@ const INITIAL_PROMPT: Prompt = {
   refine: true,
 };
 
-export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT };
+export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT, carouselImages };

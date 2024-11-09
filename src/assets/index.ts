@@ -10,6 +10,25 @@
  * - Other assets: Including the founder's image for a personal touch in sections like 'About Us', and the company logo for branding purposes.
  */
 
+// Export carousel images
+export { default as image1 } from "./carousel/1.png";
+export { default as image2 } from "./carousel/2.png";
+export { default as image3 } from "./carousel/3.png";
+export { default as image4 } from "./carousel/4.png";
+export { default as image5 } from "./carousel/5.png";
+export { default as image6 } from "./carousel/6.png";
+export { default as image7 } from "./carousel/7.png";
+export { default as image8 } from "./carousel/8.png";
+
+
+// Additional assets for the website
+
+export { default as feature01 } from "./feature-showcase/feature01.png";
+export { default as feature02 } from "./feature-showcase/feature02.png";
+export { default as feature03 } from "./feature-showcase/feature03.png";
+export { default as feature04 } from "./feature-showcase/feature04.png";
+export { default as feature05 } from "./feature-showcase/feature05.mp4";
+
 // Style images
 export { default as cartoonStyle } from "./styles/cartoon.jpeg";
 export { default as cinematicStyle } from "./styles/cinematic.jpg";
