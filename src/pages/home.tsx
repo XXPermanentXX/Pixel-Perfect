@@ -32,7 +32,7 @@ const HomePage = () => {
           
           {/* Carousel component */}
           <div className=" h-[377px] w-full">
-            <Carousel carouselImage={carouselImages}/>
+            <Carousel carouselImages={carouselImages} animationDuration={1500} delay={3500}/>
           </div>
 
           
