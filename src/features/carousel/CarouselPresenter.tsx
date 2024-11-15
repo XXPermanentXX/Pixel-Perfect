@@ -48,7 +48,7 @@ const useCarouselIndex = (length: number,delay: number,animationDuration:number)
       setTargetIndex(null)
     }
     return () => clearInterval(interval)
-  },[autoCycle,targetIndex,index,length,delay,animationDuration])
+  },[autoCycle,targetIndex,index,length,delay,animationDuration,updateIndex])
 
   //Function to handle image click event 
   const handleImageClick = (clickedIndex: number) => {
@@ -78,7 +78,7 @@ interface CarouselProps {
 
 const Carousel = ({ carouselImages, animationDuration, delay }: CarouselProps) => {
   // Define the positions of the images in the carousel.
-  const positions = ["lefthidden","leftFar","leftNear","center","rightNear","rightFar","rightHidden"];
+  const positions = ["leftHidden", "leftFar", "leftNear", "center", "rightNear", "rightFar", "rightHidden"];
 
   // Define the variants for animating images based on their position.
   const imageVariants = {
