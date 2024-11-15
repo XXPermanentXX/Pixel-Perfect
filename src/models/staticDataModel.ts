@@ -45,6 +45,22 @@ const featureCards = [
   },
 ];
 
+// Data for the team members
+const teamMembers = [
+  {
+    name: "Abdul Fattah Shamsuddin",
+    role: "Co-founder",
+    image: fathaah,
+    alt: "Abdul Fattah Shamsuddin",
+  },
+  {
+    name: "Zake Zihe Zhang",
+    role: "Co-founder",
+    image: zake,
+    alt: "Zake Zihe Zhang",
+  },
+];
+
 
 const STYLE_LIST: StyleItem[] = [
   {
@@ -99,4 +115,4 @@ const INITIAL_PROMPT: Prompt = {
   refine: true,
 };
 
-export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT, carouselImages,featureCards };
+export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT, carouselImages,featureCards,teamMembers,fathaah };

@@ -29,6 +29,11 @@ export { default as feature03 } from "./feature-showcase/feature03.png";
 export { default as feature04 } from "./feature-showcase/feature04.png";
 export { default as feature05 } from "./feature-showcase/feature05.mp4";
 
+// Founder image for the about us or team section
+export { default as fathaah } from "./co-founder/fathaah.png";
+export { default as zake } from "./co-founder/zake.png";
+
+
 // Style images
 export { default as cartoonStyle } from "./styles/cartoon.jpeg";
 export { default as cinematicStyle } from "./styles/cinematic.jpg";

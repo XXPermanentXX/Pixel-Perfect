@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@nextui-org/react";
 
 interface FeatureVideoCardProps {
-  videoUrl: string;
+  videoUrl: string | undefined;
   title: string;
   description: string;
   videoOnLeft?: boolean; 

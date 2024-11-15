@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { bgBigBlob } from "@/assets";
 import RequestButton from "@/ui/RequestButton";
 import Carousel from "@/features/carousel/CarouselPresenter";
-import { carouselImages, featureCards } from "@/models/staticDataModel";
+import { carouselImages, featureCards, teamMembers } from "@/models/staticDataModel";
 import FeatureCard from "@/ui/FeatureCard";
 import FeatureVideoCard from "@/ui/FeatureVideoCard";
+import { Card, Image } from "@nextui-org/react";
 
 const HomePage = () => {
   // Scroll to top when component mounts
@@ -53,9 +54,26 @@ const HomePage = () => {
             }
           })}
           
+          {/* About Us Section */}
+          <section id="about-us" className="relative">
+            <img src={bgBigBlob} alt="Decoratibe background blob" className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-full overflow-visible object-none" />
+            <h2 className="pb-14">About Us</h2>
+            <h5 className="max-w-xl">We started PixelPerfect AI as two master’s students at want to make content creation accessible to everyone.</h5>
+          </section>
           
-
-          
+          {/* Co-founders Cards */}
+          <div className="flex justify-center gap-x-24">
+            {teamMembers.map((member) => (
+              <Card key={member.name} className="bg-transparent shadow-none">
+                <Image src={member.image} alt={member.alt} className="h-[360px] w-[270px] rounded-[30px] object-cover object-center" />
+                <div className="pt-4 text-start">
+                  <h5 className="py-2 font-semibold">{member.name}</h5>
+                  <p>{member.role}</p>
+                </div>
+              </Card>
+            ))}
+            
+          </div>
         </div>
       </div>
     );
