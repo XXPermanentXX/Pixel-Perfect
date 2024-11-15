@@ -1,9 +1,50 @@
+
 import { AspectRatio, Prompt, StyleItem } from "./types";
-import { realisticStyle, cartoonStyle, cinematicStyle, image1, image2, image4, image5, image6, image7, image8, image3 } from "@/assets";
+import { feature01, feature02, feature03, feature04, feature05, fathaah, image1, image2, image3, image4, image5, image6, image7, image8, realisticStyle, cartoonStyle, cinematicStyle, zake } from "../assets";
 
 
 // List of images for the carousel
 const carouselImages = [image1, image2, image3, image4, image5, image6, image7, image8];
+
+// Data for the feature cards and video card
+const featureCards = [
+  {
+    type: "card",
+    imageUrl: feature01,
+    title: "Product scene change",
+    description: "PixelPerfect automatically detects the objects in the photo, plus it's 2x more accurate than similar tools.",
+    imageOnLeft: true,
+  },
+  {
+    type: "card",
+    imageUrl: feature02,
+    title: "Realistic fashion models & poses",
+    description: "Besides generated models and environments, our solution produces consistent results with perfect lighting.",
+    imageOnLeft: false,
+  },
+  {
+    type: "card",
+    imageUrl: feature03,
+    title: "Adjust object to any position",
+    description: "Move object to any position within the frame, and generate images for multiple use scenarios.",
+    imageOnLeft: true,
+  },
+  {
+    type: "card",
+    imageUrl: feature04,
+    title: "Refine details with a brush",
+    description: "Instantly adjust background and product details. With a swipe of your fingertip, you have total control of the results.",
+    imageOnLeft: false,
+  },
+  {
+    type: "video",
+    videoUrl: feature05,
+    title: "Upscale your work",
+    description: "When you are satisfied with the results, upscale the images up to 8K to maintain the sharp details.",
+    videoOnLeft: true,
+  },
+];
+
 
 const STYLE_LIST: StyleItem[] = [
   {
@@ -58,4 +99,4 @@ const INITIAL_PROMPT: Prompt = {
   refine: true,
 };
 
-export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT, carouselImages };
+export { STYLE_LIST, ASPECT_RATIO_LIST, INITIAL_PROMPT, carouselImages,featureCards };

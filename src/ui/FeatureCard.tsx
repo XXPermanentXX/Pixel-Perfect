@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Image } from "@nextui-org/react";
 
 interface FeatureCardProps {
-  imageUrl: string;
+  imageUrl: string | undefined;
   title: string;
   description: string;
   imageOnLeft?: boolean; 
@@ -17,7 +17,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ imageUrl, title, description,
           <Image src={imageUrl} alt={title} className="h-full w-full object-cover object-center" />
         </div>
       </div>
-
+      
       {/* Text content */}
       <div className="flex w-1/2 flex-col justify-center text-left">
         <h3 className="pb-8">{title}</h3>
