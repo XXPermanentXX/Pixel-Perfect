@@ -11,6 +11,7 @@ import {
 import FeatureCard from "@/ui/FeatureCard";
 import FeatureVideoCard from "@/ui/FeatureVideoCard";
 import { Card, Image } from "@nextui-org/react";
+import Footer from "@/ui/Footer";
 
 const HomePage = () => {
   // Scroll to top when component mounts
@@ -54,7 +55,7 @@ const HomePage = () => {
 
         {/* Features Section  */}
         <section className="flex flex-col gap-y-16">
-          <h2 className="flex flex-col gap-y-16">90% Time & Cost Saved</h2>
+          <h2 id="features" className="flex flex-col gap-y-16">90% Time & Cost Saved</h2>
         </section>
 
         {/* Feature cards */}
@@ -133,6 +134,7 @@ const HomePage = () => {
           <RequestButton />
         </section>
       </div>
+      <Footer />
     </div>
   );
 };

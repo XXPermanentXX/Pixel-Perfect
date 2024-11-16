@@ -33,6 +33,9 @@ export { default as feature05 } from "./feature-showcase/feature05.mp4";
 export { default as fathaah } from "./co-founder/fathaah.png";
 export { default as zake } from "./co-founder/zake.png";
 
+// Company logo
+export { default as logo } from "./logo.png";
+
 
 // Style images
 export { default as cartoonStyle } from "./styles/cartoon.jpeg";
