@@ -7,10 +7,10 @@ interface SelectOption {
 }
 
 const FormSelect = ({label, placeholder, items, value, onSelectionChange, ...props}: FormInputProps ) => {
-  const options: SelectOption[] = items.map((item) => ({
+  const options: SelectOption[] = items ? items.map((item) => ({
     label: item,
     value: item,
-  }));
+  })) : [];
     return (
         <div className="h-[80px] w-full">
             <Select
@@ -33,8 +33,8 @@ const FormSelect = ({label, placeholder, items, value, onSelectionChange, ...pro
                 ))}
             </Select>
         </div>
-    )
-}
+    );
+};
 
 export default FormSelect;  
 

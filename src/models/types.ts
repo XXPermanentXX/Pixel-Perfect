@@ -55,11 +55,11 @@ export interface AuthState {
 export interface FormInputProps {
   type?: string,
   label:string,
-  value:string,
-  onValueChange: any;
+  value?:string,
+  onValueChange?: any;
   [key: string]: any;
   errorMessage: string;
-  items: string[];
+  items?: string[];
 }
 
 
