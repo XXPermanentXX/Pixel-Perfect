@@ -2,6 +2,7 @@ import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-or
 import React from "react";
 import {  useLocation } from "react-router-dom";
 import RequestButton from "./RequestButton";
+import { PixelPerfectLogo } from "./PixelPerfectLogo";
 
 
 
@@ -20,7 +21,7 @@ const NavigationBar: React.FC = () => {
             }}
         >
             <NavbarBrand as={Link} href="/">
-                
+                <PixelPerfectLogo />
                 <h4 className="ml-4">PixelPerfect AI</h4>
             </NavbarBrand>
             <NavbarContent justify="end">

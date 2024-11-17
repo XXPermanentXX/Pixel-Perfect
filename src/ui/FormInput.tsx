@@ -1,13 +1,7 @@
+import { FormInputProps } from "@/models/types"
 import {  Input } from "@nextui-org/react"
 
-interface FormInputProps {
-    type: string,
-    label:string,
-    value:string,
-    onValueChange: any;
-    [key: string]: any;
-    errorMessage: string,
-}
+
 
 const FormInput: React.FC<FormInputProps> = ({type,label,value,onValueChange, ...props}) => {
     return (

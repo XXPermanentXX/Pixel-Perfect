@@ -52,4 +52,15 @@ export interface AuthState {
   error: string | null | undefined;
 }
 
+export interface FormInputProps {
+  type?: string,
+  label:string,
+  value:string,
+  onValueChange: any;
+  [key: string]: any;
+  errorMessage: string;
+  items: string[];
+}
+
+
 export type Status = "idle" | "loading" | "succeeded" | "failed";

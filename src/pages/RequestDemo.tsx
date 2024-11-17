@@ -1,10 +1,15 @@
+import NavigationBar from "@/ui/NavigationBar";
+import RequestDemo from "@/features/request-demo/RequestDemoPresenter";
 
-const RequestDemo = () => {
+const RequestDemoPage = () => {
     return (
-      <>
-        {'this is RequestDemo'}
-      </>
+      <div className="bg-form-page h-screen">
+        <NavigationBar />
+        <div className="flex h-screen flex-col justify-center">
+          <RequestDemo />
+        </div>
+      </div>
     );
   };
   
-  export default RequestDemo;
+  export default RequestDemoPage;
