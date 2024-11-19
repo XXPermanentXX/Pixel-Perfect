@@ -1,4 +1,4 @@
-import { ADJECTIVES, ANIMALS, AVATAR_URLS } from "../staticData";
+import { ADJECTIVES, ANIMALS, AVATAR_URLS } from "../staticDataModel";
 
 const generateRandomUsername = (): string => {
   const adjective = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];

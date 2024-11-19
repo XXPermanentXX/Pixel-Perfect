@@ -41,7 +41,7 @@ export interface Prompt {
 }
 
 export interface formState {
-  username: string;
+  useremail: string;
   password: string;
 }
 

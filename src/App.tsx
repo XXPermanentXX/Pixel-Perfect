@@ -4,7 +4,12 @@ import { NextUIProvider } from "@nextui-org/react";
 import Home from "./pages/Home";
 import RequestDemo from "./pages/RequestDemo";
 import LoginPage from "./pages/Login";
-import ProtectedRoute from "./features/auth/ProtectedRoute";
+// import ProtectedRoute from "./features/auth/ProtectedRoute";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./provider";
+import { onAuthStateChanged,User as FirebaseUser } from "firebase/auth";
+import { auth } from "./models/firebaseModel";
+import { getUserData } from "./models/user/authSlice";
 
 //todo
 const GeneratePage = lazy(() => import("./pages/Generate"));
@@ -13,6 +18,22 @@ const GeneratePage = lazy(() => import("./pages/Generate"));
 const App: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (currentUser: FirebaseUser | null) => {
+        if (currentUser) {
+          dispatch(getUserData(currentUser));
+        }
+      }
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     // Regular expression to check if the path starts with "/generate/model"

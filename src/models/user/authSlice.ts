@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -15,12 +15,13 @@ import { auth } from "../firebaseModel";
 import { User } from "./types";
 import { getUserFromDb, setUserFromDb, updateUserFromDb } from "./userData";
 import { generateRandomAvatarURL, generateRandomUsername } from "./utils";
+import { BASE_URL } from "../apiConfig";
 // Define the authentication state interface
 interface AuthState {
   user: User | null; // Current user
   authState: Status; // Loading state
   resetEmailState: Status | 'wait'; // Reset email state
-  isFirstLogin: boolean;
+  adminKey:string | null, // Holds the authentication token or key
 }
 
 // Initial authentication state
@@ -28,8 +29,39 @@ const initialState: AuthState = {
   user: null,
   authState: "idle",
   resetEmailState: "idle",
-  isFirstLogin: false,
+  adminKey: null, // Holds the authentication token or key
 };
+export const validateLogin = createAsyncThunk("auth/validateLogin", 
+  async ({ username, password }:{
+    username:string,
+    password:string
+  }, { rejectWithValue }) => {
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("password", password);
+
+  // Attempt to POST login credentials to the server
+  return fetch(BASE_URL + "/admin/validate", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => {
+      if (!res.ok) {
+        // Manually throw an error if the HTTP response is not ok
+        return rejectWithValue(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      if (!data.success) {
+        return rejectWithValue(data.message === "Invalid credentials provided. Access denied." ? "The username or password is incorrect." : data.message);
+      }
+      return data.admin_id;
+    })
+    .catch((error) => {
+      return rejectWithValue(error.message);
+    });
+});
 
 // Sign in
 export const signIn = createAsyncThunk(
@@ -42,8 +74,9 @@ export const signIn = createAsyncThunk(
     email: string;
     password: string;
     isRememberMe: boolean;
-  }, { rejectWithValue, dispatch }) => {
+  }, { rejectWithValue }) => {
     try {
+      console.log(email,password);
       if (isRememberMe) {
         await setPersistence(auth, browserLocalPersistence); // Keep the user logged in
       } else {
@@ -59,7 +92,7 @@ export const signIn = createAsyncThunk(
       console.log(error);
       if (error.code === "auth/user-not-found") {
         try {
-          dispatch(setIsfirstLogin(true))
+          
           // Register and sign in the user
           await createUserWithEmailAndPassword(auth, email, password);
           await signInWithEmailAndPassword(auth, email, password);
@@ -141,9 +174,6 @@ const authSlice = createSlice({
       state.authState = "idle";
       state.resetEmailState = "idle";
     },
-    setIsfirstLogin (state, action: PayloadAction<boolean>) {
-      state.isFirstLogin = action.payload;
-    },
 
   },
   extraReducers: (builder) => {
@@ -190,9 +220,12 @@ const authSlice = createSlice({
           state.resetEmailState = 'failed';
         }
       })
+      .addCase(validateLogin.fulfilled, (state, action) => {
+        state.adminKey = action.payload; // Store the admin key
+      })
   },
 });
 
 // Export the reducer
 export default authSlice.reducer;
-export const { resetAuthState, setIsfirstLogin } = authSlice.actions;
+export const { resetAuthState} = authSlice.actions;

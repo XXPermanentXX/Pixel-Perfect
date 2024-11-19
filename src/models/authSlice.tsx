@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/models/apiConfig";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AuthState, formState } from "./types";
+import { AuthState } from "./types";
 
 
 
@@ -13,7 +13,7 @@ const initialState : AuthState = {
 }
 
 // Async thunk for validating login credentials
-export const validateLogin = createAsyncThunk<string,formState,{ rejectValue: string}>(
+export const validateLogin = createAsyncThunk<string,{username:string,password:string},{ rejectValue: string}>(
     "auth/validateLogin",
     async ({username,password},{rejectWithValue}) => {
         const formData = new FormData();

@@ -1,4 +1,4 @@
-import LoginComponent from "@/features/auth/LogicPresenter";
+import LoginComponent from "@/features/auth/AuthPresenter";
 import NavigationBar from "@/ui/NavigationBar";
 
 const Login = () => {

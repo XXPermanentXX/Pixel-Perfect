@@ -2,7 +2,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseModel";
 import { User } from "./types";
 import { userDataConverter } from "./userDataConverter";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 
 // 设置用户数据
 const setUserFromDb = async (User: User) => {
@@ -47,7 +47,7 @@ const getUserFromDb = async (): Promise<User | null> => {
 };
 
 // 更新用户数据
-const updateUserFromDb = debounce(async (updatedData: Partial<User>) => {
+const updateUserFromDb = async (updatedData: Partial<User>) => {
   try {
     const user = auth.currentUser;
     if (user) {
@@ -61,6 +61,6 @@ const updateUserFromDb = debounce(async (updatedData: Partial<User>) => {
   } catch (error) {
     console.error("Error updating user data:", error);
   }
-}, 500);
+}
 
 export { getUserFromDb, updateUserFromDb, setUserFromDb };

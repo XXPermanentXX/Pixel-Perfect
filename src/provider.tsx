@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import generateReducer from "@/models/generateSlice";
 import projectHistoryReducer from "@/models/projectHistorySlice";
-import authReducer from "@/models/authSlice"
+import authReducer from "@/models/user/authSlice"
 
 const store = configureStore({
   reducer: {
