@@ -175,8 +175,38 @@ const INITIAL_PROMPT: Prompt = {
   diffusionSteps: 20,
   refine: true,
 };
+const AVATAR_URLS = [
+  "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+  "https://i.pravatar.cc/150?u=a04258a2462d826712d",
+  "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+  "https://i.pravatar.cc/150?u=a04258114e29026302d",
+  "https://i.pravatar.cc/150?u=a04258114e29026702d",
+  "https://i.pravatar.cc/150?u=a04258114e29026708c"
+];
+
+const ADJECTIVES = [
+  'Happy', 'Fast', 'Creative', 'Brave', 'Silent', 'Clever', 'Bright', 'Mighty', 'Gentle',
+  'Fierce', 'Quiet', 'Curious', 'Loyal', 'Bold', 'Fearless', 'Friendly', 'Graceful',
+  'Swift', 'Shiny', 'Wild', 'Playful', 'Calm', 'Daring', 'Dreamy'
+];
+
+const ANIMALS = [
+  'Tiger', 'Whale', 'Eagle', 'Lion', 'Bear', 'Fox', 'Wolf', 'Hawk', 'Falcon', 'Panda',
+  'Dragon', 'Shark', 'Dolphin', 'Phoenix', 'Leopard', 'Falcon', 'Elephant', 'Cheetah',
+  'Otter', 'Koala', 'Giraffe', 'Penguin', 'Zebra', 'Panther'
+];
+
+const RESET_MESSAGES = {
+  succeeded: "Password reset email sent",
+  failed: "Invalid email",
+  wait: "Please wait a minute for another reset.",
+  loading: "",
+  idle: "",
+  default: ""
+};
 
 export {
+  AVATAR_URLS, ADJECTIVES, ANIMALS, RESET_MESSAGES, 
   STYLE_LIST,
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,

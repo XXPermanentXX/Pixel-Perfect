@@ -13,7 +13,8 @@ interface LoginFormViewProps {
     onInputChange:any,
     submitLogin:any,
     isLoading:boolean,
-    errorMessage: any
+    errorMessage: any,
+    
 }
 
 const LoginFormView: React.FC<LoginFormViewProps> = ({formState,fieldValidity, onInputChange,submitLogin,isLoading,errorMessage}) => {
