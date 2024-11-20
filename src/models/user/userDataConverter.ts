@@ -9,7 +9,7 @@ export const userDataConverter: FirestoreDataConverter<User> = {
       username: userData.username,
       avatarUrl: userData.avatarUrl,
       email: userData.email,
-      promptRequeest:userData.promptRequest
+      promptRequest:userData.promptRequest
     };
   },
   fromFirestore: (snapshot, options) => {

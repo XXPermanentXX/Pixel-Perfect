@@ -100,7 +100,6 @@ const generateSlice = createSlice({
     },
     setPromptRequest(state, action) {
       const prompt = action.payload
-      updateUserData(prompt)
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
       console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },

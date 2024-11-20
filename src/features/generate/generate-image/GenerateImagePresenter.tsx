@@ -7,11 +7,16 @@ import {
   INITIAL_PROMPT,
   STYLE_LIST ,
 } from "@/models/staticDataModel";
-import { ProductsItem } from "@/models/types";
+import { ProductsItem, Prompt } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/provider";
+import { setPromptRequest as setPromptRequestSlice } from "@/models/generateSlice";
+import { updateUserData } from "@/models/user/authSlice";
 
 const GenerateImage: React.FC = () => {
-  const [promptRequest, setPromptRequest] = useState(INITIAL_PROMPT);
+  const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest)
+  const [promptRequest, setPromptRequest] = useState(promptRequestSlice || INITIAL_PROMPT)
   const [generatedImages, setGeneratedImages] = useState<
     { imageUrl: string }[]
   >([]);
@@ -26,6 +31,8 @@ const GenerateImage: React.FC = () => {
     value: 0,
     text: "",
   });
+
+  const dispatch = useDispatch<AppDispatch>()
 
   // Mocking productList for demonstration purpose
   const productList: ProductsItem[] = [
@@ -70,7 +77,15 @@ const GenerateImage: React.FC = () => {
       user_id: "admin",
     },
   ];
+  const handleChangePromptRequest = (promptRequest:Prompt) => {
+    console.log("object,",promptRequest);
+    dispatch(setPromptRequestSlice(promptRequest))
+    dispatch(updateUserData({promptRequest}))
+  }
 
+  useEffect(()=>{
+    handleChangePromptRequest(promptRequest)
+  },[promptRequest])
   const handleGenerate = () => {
     setGenerateStatus("loading");
     setProgressText({ value: 0, text: "Connecting to the GPU..." });
