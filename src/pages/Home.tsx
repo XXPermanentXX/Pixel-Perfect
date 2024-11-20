@@ -55,8 +55,8 @@ const HomePage = () => {
 
         {/* Features Section  */}
         <section className="flex flex-col gap-y-16">
-          <h2 id="features" className="flex flex-col gap-y-16">90% Time & Cost Saved</h2>
-        </section>
+          <h2 id="features" className="flex flex-col gap-y-16">What Can We Do?</h2>
+
 
         {/* Feature cards */}
         {featureCards.map((item, index) => {
@@ -82,6 +82,7 @@ const HomePage = () => {
             );
           }
         })}
+        </section>
 
         {/* About Us Section */}
         <section id="about-us" className="relative">
@@ -93,7 +94,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center pb-16">
             <h2 className="pb-14">About Us</h2>
             <h5 className="max-w-xl">
-              We started PixelPerfect AI as two master’s students at want to
+              We started PixelPerfect AI as three master’s students at want to
               make content creation accessible to everyone.
             </h5>
           </div>
