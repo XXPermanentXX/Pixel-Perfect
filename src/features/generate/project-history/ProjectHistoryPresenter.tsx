@@ -15,7 +15,7 @@ interface ImageType {
 
 const ProjectHistory: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string>('');
   const [imageList, setImageList] = useState<ImageType[]>([]);
   const user = useSelector((state:RootState) => state.auth.user)
 
@@ -25,7 +25,7 @@ const ProjectHistory: React.FC = () => {
         .then(() => {
           // update the image list after deleting the image
           setImageList((prevList) => prevList.filter((image) => image.src !== selectedImage));
-          setSelectedImage(null);
+          setSelectedImage('');
           onClose();
         })
         .catch((error) => console.error("Failed to delete image:", error));
