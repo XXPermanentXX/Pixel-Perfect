@@ -30,12 +30,12 @@ export { default as feature04 } from "./feature-showcase/feature04.png";
 export { default as feature05 } from "./feature-showcase/feature05.mp4";
 
 // Founder image for the about us or team section
-export { default as fathaah } from "./co-founder/fathaah.png";
-export { default as zake } from "./co-founder/zake.png";
+export { default as shiqi } from "./co-founder/shiqi.jpg";
+export { default as yizhang } from "./co-founder/yizhang.jpg";
+export { default as changrong } from "./co-founder/changrong.jpg";
 
 // Company logo
 export { default as logo } from "./logo.png";
-
 
 // Style images
 export { default as cartoonStyle } from "./styles/cartoon.jpeg";

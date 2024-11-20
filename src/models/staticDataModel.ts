@@ -32,7 +32,6 @@ import {
   feature03,
   feature04,
   feature05,
-  fathaah,
   image1,
   image2,
   image3,
@@ -44,7 +43,9 @@ import {
   realisticStyle,
   cartoonStyle,
   cinematicStyle,
-  zake,
+  shiqi,
+  yizhang,
+  changrong,
 } from "../assets";
 
 // List of images for the carousel
@@ -106,16 +107,22 @@ const featureCards = [
 // Data for the team members
 const teamMembers = [
   {
-    name: "Abdul Fattah Shamsuddin",
+    name: "Shiqi Gong",
     role: "Co-founder",
-    image: fathaah,
-    alt: "Abdul Fattah Shamsuddin",
+    image: shiqi,
+    alt: "Shiqi Gong",
   },
   {
-    name: "Zake Zihe Zhang",
+    name: "Yizhang Tan",
     role: "Co-founder",
-    image: zake,
-    alt: "Zake Zihe Zhang",
+    image: yizhang,
+    alt: "Yizhang Tan",
+  },
+  {
+    name: "Changrong Li",
+    role: "Co-founder",
+    image: changrong,
+    alt: "Changrong Li",
   },
 ];
   // Mocking productList for demonstration purpose
@@ -258,7 +265,6 @@ export {
   carouselImages,
   featureCards,
   teamMembers,
-  fathaah,
   companySizes,
   industries,
 };
