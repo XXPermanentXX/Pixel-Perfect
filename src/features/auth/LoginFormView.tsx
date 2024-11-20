@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Input, Link, Checkbox, Spinner } from "@nextui-org/react";
+import { Button, Link, Checkbox, Spinner } from "@nextui-org/react";
 
 import { Status } from "@/models/types";
 import { UseFormFieldReturn } from "@/hooks/useFormField";
