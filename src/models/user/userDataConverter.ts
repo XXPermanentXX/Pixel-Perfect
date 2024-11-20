@@ -19,7 +19,9 @@ export const userDataConverter: FirestoreDataConverter<User> = {
       username: data.username,
       avatarUrl: data.avatarUrl,
       email: data.email,
-      promptRequest:data.promptRequest
+      promptRequest:data.promptRequest,
+      initialProduct:data.initialProduct,
+      initialStyle:data.initialStyle
     };
   }
 };

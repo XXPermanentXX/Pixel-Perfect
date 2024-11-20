@@ -38,6 +38,8 @@ export interface Prompt {
   generationSeed: string;
   diffusionSteps: number;
   refine: boolean;
+  initialProduct:string
+  initialStyle:string
 }
 
 export interface formState {

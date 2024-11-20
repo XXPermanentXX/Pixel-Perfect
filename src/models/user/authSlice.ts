@@ -16,7 +16,7 @@ import { User } from "./types";
 import { getUserFromDb, setUserFromDb, updateUserFromDb } from "./userData";
 import { generateRandomAvatarURL, generateRandomUsername } from "./utils";
 import { BASE_URL } from "../apiConfig";
-import { INITIAL_PROMPT } from "../staticDataModel";
+import { INITIAL_PROMPT, PRODUCT_LIST, STYLE_LIST } from "../staticDataModel";
 // Define the authentication state interface
 interface AuthState {
   user: User | null; // Current user
@@ -156,7 +156,7 @@ export const getUserData = createAsyncThunk(
         username: generateRandomUsername(),
         avatarUrl: generateRandomAvatarURL(),
         email: user.email!,
-        promptRequest:INITIAL_PROMPT
+        promptRequest:INITIAL_PROMPT,
       };
 
       await setUserFromDb(userData);

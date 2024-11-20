@@ -1,7 +1,7 @@
 import { SetStateAction, useState } from "react";
 import { Image, Select, SelectItem } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { Prompt } from "@/store/models/types";
+import { Prompt } from "@/models/types";
 
 interface ModelItem {
   id: string;
@@ -35,6 +35,8 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
     return "";
   });
 
+  
+
   // const navigate = useNavigate();
 
   return (
@@ -51,11 +53,12 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
           // Find the new selected item based on newSelectedId
           const newSelectedItem = items.find((item) => item.name === newSelectedName);
           if ( newSelectedItem && "lora_model_name" in newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word }));
+            setPromptRequest((prev)=>({...prev, model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word,initialProduct: newSelectedItem.name }));
             // navigate(`/generate/model/${newSelectedName}`);
           } else if (newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, keywords: newSelectedItem.keywords.split(",") }));
+            setPromptRequest((prev)=>({...prev, keywords: newSelectedItem.keywords.split(","),initialStyle:newSelectedItem.name }));
           }
+
         }}
         aria-label="Select an item"
         radius="sm"

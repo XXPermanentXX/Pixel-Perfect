@@ -5,9 +5,10 @@ import { Divider } from "@nextui-org/react";
 import {
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,
+  PRODUCT_LIST,
   STYLE_LIST ,
 } from "@/models/staticDataModel";
-import { ProductsItem, Prompt } from "@/models/types";
+import { Prompt } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
@@ -34,49 +35,7 @@ const GenerateImage: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
 
-  // Mocking productList for demonstration purpose
-  const productList: ProductsItem[] = [
-    {
-      id: "7b89ed7d-129b-4d35-a845-be0f2b08782f",
-      lora_model_name: "lv-000009.safetensors",
-      name: "Louis Vuitton Bag",
-      product_type: "Ladies Bag",
-      thumbnail:
-        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/lv_bag.png",
-      trigger_word: "black lv bag",
-      user_id: "admin",
-    },
-    {
-      id: "7b89ed7d-129b-4d35-a745-be0ffb08582f",
-      lora_model_name: "cro-000012.safetensors",
-      name: "Croissant",
-      product_type: "Croissant",
-      thumbnail:
-        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/croissant.jpeg",
-      trigger_word: "cro croissant",
-      user_id: "admin",
-    },
-    {
-      id: "7b89gf7d-129b-4d35-a745-be0ffb05682d",
-      lora_model_name: "avr-000015.safetensors",
-      name: "Apple Vision Pro",
-      product_type: "VR Headset",
-      thumbnail:
-        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/vison_pro.png",
-      trigger_word: "avr Virtual Reality Headset",
-      user_id: "admin",
-    },
-    {
-      id: "7b89gf7d-129b-476y-a734-be0ffb051dl8",
-      lora_model_name: "tbl-000042.safetensors",
-      name: "Timberland Shoes",
-      product_type: "Shoes",
-      thumbnail:
-        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/timberland.png",
-      trigger_word: "tbl Timberland boots",
-      user_id: "admin",
-    },
-  ];
+
   const handleChangePromptRequest = (promptRequest:Prompt) => {
     console.log("object,",promptRequest);
     dispatch(setPromptRequestSlice(promptRequest))
@@ -158,7 +117,7 @@ const GenerateImage: React.FC = () => {
       <div className="flex h-[calc(100%)] w-full">
         <div className="flex w-1/3 min-w-[420px] max-w-[600px] pl-[50px] pr-[10px]">
           <GenerateSettingView
-            productList={productList}
+            productList={PRODUCT_LIST}
             styleList={STYLE_LIST}
             aspectRatioList={ASPECT_RATIO_LIST}
             promptRequest={promptRequest}

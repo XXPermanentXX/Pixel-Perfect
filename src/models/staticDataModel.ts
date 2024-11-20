@@ -1,4 +1,4 @@
-import { AspectRatio, Prompt, StyleItem } from "./types";
+import { AspectRatio, ProductsItem, Prompt, StyleItem } from "./types";
 
 // Predefined company sizes for dropdowns or select input in forms.
 const companySizes = ["Self employed", "2-10 employees", "11-50 employees", "51-200 employees", "201-500 employees", "500+ employees"];
@@ -118,6 +118,49 @@ const teamMembers = [
     alt: "Zake Zihe Zhang",
   },
 ];
+  // Mocking productList for demonstration purpose
+  const PRODUCT_LIST: ProductsItem[] = [
+    {
+      id: "7b89ed7d-129b-4d35-a845-be0f2b08782f",
+      lora_model_name: "lv-000009.safetensors",
+      name: "Louis Vuitton Bag",
+      product_type: "Ladies Bag",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/lv_bag.png",
+      trigger_word: "black lv bag",
+      user_id: "admin",
+    },
+    {
+      id: "7b89ed7d-129b-4d35-a745-be0ffb08582f",
+      lora_model_name: "cro-000012.safetensors",
+      name: "Croissant",
+      product_type: "Croissant",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/croissant.jpeg",
+      trigger_word: "cro croissant",
+      user_id: "admin",
+    },
+    {
+      id: "7b89gf7d-129b-4d35-a745-be0ffb05682d",
+      lora_model_name: "avr-000015.safetensors",
+      name: "Apple Vision Pro",
+      product_type: "VR Headset",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/vison_pro.png",
+      trigger_word: "avr Virtual Reality Headset",
+      user_id: "admin",
+    },
+    {
+      id: "7b89gf7d-129b-476y-a734-be0ffb051dl8",
+      lora_model_name: "tbl-000042.safetensors",
+      name: "Timberland Shoes",
+      product_type: "Shoes",
+      thumbnail:
+        "https://pixelperfectstorage.blob.core.windows.net/thumbnails/timberland.png",
+      trigger_word: "tbl Timberland boots",
+      user_id: "admin",
+    },
+  ];
 
 const STYLE_LIST: StyleItem[] = [
   {
@@ -174,6 +217,9 @@ const INITIAL_PROMPT: Prompt = {
   generationSeed: "",
   diffusionSteps: 20,
   refine: true,
+  initialProduct:PRODUCT_LIST[0].name,
+  initialStyle:STYLE_LIST[0].name
+  
 };
 const AVATAR_URLS = [
   "https://i.pravatar.cc/150?u=a042581f4e29026024d",
@@ -206,7 +252,8 @@ const RESET_MESSAGES = {
 };
 
 export {
-  AVATAR_URLS, ADJECTIVES, ANIMALS, RESET_MESSAGES, 
+  AVATAR_URLS, ADJECTIVES, ANIMALS, RESET_MESSAGES,
+  PRODUCT_LIST, 
   STYLE_LIST,
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,

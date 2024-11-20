@@ -2,6 +2,8 @@ import { Button, Tab, Tabs, Textarea } from "@nextui-org/react";
 import  { SetStateAction, useRef } from "react";
 import ImageSelect from "@/ui/ImageSelect";
 import { AspectRatio, Status, ProductsItem, Prompt, StyleItem } from "@/models/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/provider";
 
 
 interface GenerateSettingViewProps {
@@ -20,9 +22,10 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRe
   });
 
   const scrollContainerRef = useRef(null);
-  const productModel=productList[0].name
-  const imageStyle=styleList[0].name
-  const aspectRatio=aspectRatioList[0].title
+  const productModel = useSelector((state:RootState) => state.auth.user?.promptRequest.initialProduct) || productList[0].name
+  const imageStyle = useSelector((state:RootState) => state.auth.user?.promptRequest.initialStyle) || styleList[0].name
+  const aspectRatio = useSelector((state:RootState) => state.auth.user?.promptRequest.aspectRatio) || aspectRatioList[0].title
+
 
   return (
     <div className="flex w-full flex-col gap-6">

@@ -9,5 +9,5 @@ export interface User {
   username: string;
   avatarUrl: string;
   email: string;
-  promptRequest:Prompt
+  promptRequest:Prompt,
 }
