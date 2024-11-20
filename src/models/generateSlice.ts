@@ -3,13 +3,15 @@ import { API_KEY, BASE_URL, WS_URL } from "./apiConfig";
 import { INITIAL_PROMPT, STYLE_LIST } from "./staticDataModel";
 import { ProductsItem, Prompt, Status } from "./types";
 import { mapPromptToSettings } from "@/utilities";
+import { setHistoryImageData } from "./history/historyData";
+import { User } from "./user/types";
+import { updateUserData } from "./user/authSlice";
 // import { setHistoryImageData } from "./firebaseModel";
 
 interface GenerateState {
   loaderText: string;
   productsData: Array<ProductsItem>;
   productStatus: Status;
-  promptRequest: Prompt;
   generateStatus: Status;
   generateSettings: {
     productModel: string;
@@ -23,7 +25,6 @@ const initialState: GenerateState = {
   loaderText: "",
   productsData: [],
   productStatus: "idle",
-  promptRequest: INITIAL_PROMPT,
   generateStatus: "idle",
   generateSettings: {
     productModel: "",
@@ -37,8 +38,8 @@ export const generateImage = createAsyncThunk(
   "generate/handleGenerate",
   async (_, { rejectWithValue, dispatch, getState }) => {
     return new Promise((resolve, reject) => {
-      const state = getState() as { generate: GenerateState };
-      const { promptRequest } = state.generate;
+      const state = getState() as { generate: GenerateState; user: User };
+      const promptRequest = state.user.promptRequest;
       const sendPrompt = {
         ...promptRequest,
         generationSeed: Math.floor(Math.random() * 0xffffffffffffffff),
@@ -87,6 +88,8 @@ export const getProductData = createAsyncThunk(
   }
 );
 
+
+
 const generateSlice = createSlice({
   name: "generate",
   initialState,
@@ -96,11 +99,8 @@ const generateSlice = createSlice({
       state.productStatus = "idle";
     },
     setPromptRequest(state, action) {
-      const prompt = {
-        ...state.promptRequest,
-        ...action.payload,
-      };
-      state.promptRequest = prompt;
+      const prompt = action.payload
+      updateUserData(prompt)
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
       console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },

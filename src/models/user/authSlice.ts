@@ -16,6 +16,7 @@ import { User } from "./types";
 import { getUserFromDb, setUserFromDb, updateUserFromDb } from "./userData";
 import { generateRandomAvatarURL, generateRandomUsername } from "./utils";
 import { BASE_URL } from "../apiConfig";
+import { INITIAL_PROMPT } from "../staticDataModel";
 // Define the authentication state interface
 interface AuthState {
   user: User | null; // Current user
@@ -155,7 +156,7 @@ export const getUserData = createAsyncThunk(
         username: generateRandomUsername(),
         avatarUrl: generateRandomAvatarURL(),
         email: user.email!,
-        promptRequest:{}
+        promptRequest:INITIAL_PROMPT
       };
 
       await setUserFromDb(userData);
@@ -193,6 +194,7 @@ const authSlice = createSlice({
       // Handle sign-out state
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+        state.authState = "idle"
       })
 
       // Handle update user data state

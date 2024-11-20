@@ -3,11 +3,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import generateReducer from "@/models/generateSlice";
+import appReducer from "@/models/AppSlice"
 import projectHistoryReducer from "@/models/projectHistorySlice";
 import authReducer from "@/models/user/authSlice"
 
 const store = configureStore({
   reducer: {
+    app:appReducer,
     generate: generateReducer,
     projectHistory: projectHistoryReducer,
     auth: authReducer

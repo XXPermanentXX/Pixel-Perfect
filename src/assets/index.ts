@@ -50,4 +50,10 @@ export { default as bgSmallBlob } from "./background/bg-small-blob.png";
 
 
 // Icons
+export { default as myModelsIcon } from "./icon/icon-my-models.svg";
+export { default as myPhotosIcon } from "./icon/icon-my-photos.svg";
+export { default as signOutIcon } from "./icon/icon-sign-out.svg";
+export { default as backIcon } from "./icon/icon-back.svg";
 export { default as downloadIcon } from "./icon/icon-download.svg";
+export { default as deleteIcon } from "./icon/icon-delete.svg";
+export { default as deleteIcon2 } from "./icon/icon-delete-2.svg";

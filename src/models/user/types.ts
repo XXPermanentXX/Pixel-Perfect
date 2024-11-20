@@ -1,6 +1,6 @@
 
 export interface promptRequest{
-  aspectRation:string,
+  aspectRatio:string,
   diffusionSteps:number
   filename:string,
   generationSeed:string,
@@ -21,5 +21,5 @@ export interface User {
   username: string;
   avatarUrl: string;
   email: string;
-  promptRequest:promptRequest | {}
+  promptRequest:promptRequest 
 }
