@@ -37,7 +37,7 @@ import { getProductData,  setPromptRequest } from "@/models/generateSlice";
 import { setSidebarExpanded } from "@/models/AppSlice"
 import { AppDispatch, RootState } from "@/provider";
 
-interface Product {
+export interface Product {
   name: string;
   thumbnail: string;
   lora_model_name: string;
@@ -50,27 +50,19 @@ const ChooseProduct: React.FC = () => {
   const adminKey = useSelector((state: any) => state.auth.adminKey);
   const productList = useSelector((state: any) => state.generate.productsData);
   const productStatus = useSelector((state: any) => state.generate.productStatus);
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
   const promptRequest = useSelector((state:RootState) => state.auth.user?.promptRequest)
+  const user = useSelector((state:RootState) => state.auth.user)
 
   useEffect(() => {
     if (productList.length > 0) {
-      // setIsReady(false);
-      // getPromptRequestFromFirebase(dispatch, setPromptRequest).then((model) => {
-        // setIsReady(true);
-
-        if (promptRequest?.model) {
-          // const product = productList.find((product: Product) => product.lora_model_name === promptRequest.model);
-          // if (product) {
-          //   dispatch(setSidebarExpanded(false));
-          //   navigate(`/generate/model/${product.name}`);
-          // }
+        if (user && promptRequest) {
+            setIsReady(true);
         }
-      // });
     } else {
       dispatch(getProductData());
     }
-  }, [dispatch, adminKey, productList]);
+  }, [dispatch, adminKey, productList, user?.userId]);
 
   const handleSelectProduct = (product: Product) => {
     dispatch(setSidebarExpanded(false));

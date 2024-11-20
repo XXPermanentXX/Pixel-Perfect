@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GenerateSettingView from "./GenerateSettingView";
 import GenerateResultsView from "./GenerateResultsView";
 import { Divider } from "@nextui-org/react";
@@ -14,10 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
 import { setPromptRequest as setPromptRequestSlice } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
+import { setSidebarExpanded } from "@/models/AppSlice";
 
 const GenerateImage: React.FC = () => {
   const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest)
-  const [promptRequest, setPromptRequest] = useState(promptRequestSlice || INITIAL_PROMPT)
+  const promptRequest = useRef(promptRequestSlice || INITIAL_PROMPT)
   const [generatedImages, setGeneratedImages] = useState<
     { imageUrl: string }[]
   >([]);
@@ -35,16 +36,18 @@ const GenerateImage: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
 
+  useEffect(() => {
+      dispatch(setSidebarExpanded(false));
+  },[])
 
-  const handleChangePromptRequest = (promptRequest:Prompt) => {
-    console.log("object,",promptRequest);
-    dispatch(setPromptRequestSlice(promptRequest))
-    dispatch(updateUserData({promptRequest}))
-  }
-
-  useEffect(()=>{
-    handleChangePromptRequest(promptRequest)
-  },[promptRequest])
+  const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
+    const _promptRequest = {...promptRequest.current,...newPromptRequest}
+    promptRequest.current = _promptRequest;
+    if(_promptRequest.model) {
+      dispatch(setPromptRequestSlice(_promptRequest));
+      dispatch(updateUserData({promptRequest:_promptRequest}));
+    }
+  };
   const handleGenerate = () => {
     setGenerateStatus("loading");
     setProgressText({ value: 0, text: "Connecting to the GPU..." });
@@ -120,8 +123,8 @@ const GenerateImage: React.FC = () => {
             productList={PRODUCT_LIST}
             styleList={STYLE_LIST}
             aspectRatioList={ASPECT_RATIO_LIST}
-            promptRequest={promptRequest}
-            setPromptRequest={setPromptRequest}
+            promptRequest={promptRequest.current}
+            setPromptRequest={handlePromptRequestChange}
             handleGenerate={handleGenerate}
             generateStatus={generateStatus}
           />

@@ -22,7 +22,7 @@ interface ImageSelectProps {
   items: ModelItem[] | StyleItem[];
   initialProduct: string;
   initialStyle: string;
-  setPromptRequest: (request: SetStateAction<Prompt>) => void;
+  setPromptRequest: (request: Partial<Prompt>) => void;
 }
 function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:ImageSelectProps) {
   // State to track the selected item
@@ -53,10 +53,10 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
           // Find the new selected item based on newSelectedId
           const newSelectedItem = items.find((item) => item.name === newSelectedName);
           if ( newSelectedItem && "lora_model_name" in newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word }));
+            setPromptRequest( {model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word} );
             // navigate(`/generate/model/${newSelectedName}`);
           } else if (newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, keywords: newSelectedItem.keywords.split(",")}));
+            setPromptRequest({ keywords: newSelectedItem.keywords.split(",")});
           }
 
         }}

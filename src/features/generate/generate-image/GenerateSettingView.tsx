@@ -11,7 +11,7 @@ interface GenerateSettingViewProps {
   styleList: StyleItem[];
   aspectRatioList: AspectRatio[];
   promptRequest: Prompt;
-  setPromptRequest: (request: SetStateAction<Prompt>) => void;
+  setPromptRequest: (request: Partial<Prompt>) => void;
   handleGenerate: () => void;
   generateStatus: Status;
 }
@@ -39,7 +39,7 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRe
             disableAutosize
             value={promptRequest.prompt}
             onValueChange={(val) => {
-              setPromptRequest((prev)=>({...prev, prompt: val }));
+              setPromptRequest({...promptRequest,prompt:val});
             }}
             classNames={{
               input: "resize-y min-h-[178px] group-data-[has-value=true]:text-white text-[18px]",
@@ -60,7 +60,9 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRe
             aria-label="Tabs variants"
             selectedKey={aspectRatio}
             onSelectionChange={(key) => {
-              setPromptRequest((prev)=>({...prev, aspectRatio: key as string }));
+              if (key !== aspectRatio) {  
+                setPromptRequest({ ...promptRequest, aspectRatio: key as string });
+              }
             }}
           >
             {aspectRatioRender}
