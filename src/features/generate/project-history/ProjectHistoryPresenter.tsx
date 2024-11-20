@@ -10,6 +10,7 @@ import { RootState } from "@/provider";
 // define the interface type
 interface ImageType {
   src: string;
+  id: string;
 }
 
 const ProjectHistory: React.FC = () => {

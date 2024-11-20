@@ -66,7 +66,7 @@ export const generateImage = createAsyncThunk(
           console.log(`Message received: ${event.data}`);
           const response = JSON.parse(event.data);
           const imageUrls = response.map((image: any) => ({ imageUrl: image }));
-          // setHistoryImageData(imageUrls);
+          setHistoryImageData(imageUrls,state.user.userId);
           resolve(imageUrls);
         } catch (e) {
           dispatch(updateLoaderText(event.data));

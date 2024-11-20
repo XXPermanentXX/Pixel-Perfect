@@ -1,10 +1,7 @@
 import { Card, Image } from "@nextui-org/react";
 import React from "react";
+import { Product } from "./chooseProductPresenter";
 
-interface Product {
-  name: string;
-  thumbnail: string;
-}
 
 interface ChooseProductViewProps {
   products: Product[];
