@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "@nextui-org/react";
+import { Modal,ModalBody,ModalFooter, Button } from "@nextui-org/react";
 
 // define the props type
 interface ImageModalProps {
@@ -12,21 +12,21 @@ interface ImageModalProps {
 
 const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, imageSrc, onDelete, showDeleteButton }) => {
   return (
-    <Modal open={isOpen} onClose={onClose} closeButton>
-      <Modal.Body>
+    <Modal isOpen={isOpen} onClose={onClose} closeButton>
+      <ModalBody>
         {imageSrc ? (
           <img src={imageSrc} alt="Selected" className="w-full h-full object-cover" />
         ) : (
           <p>No image to display</p>
         )}
-      </Modal.Body>
-      <Modal.Footer>
+      </ModalBody>
+      <ModalFooter>
         {showDeleteButton && (
-          <Button auto color="error" onClick={onDelete}>
+          <Button color="danger" onClick={onDelete}>
             Delete
           </Button>
         )}
-      </Modal.Footer>
+      </ModalFooter>
     </Modal>
   );
 };

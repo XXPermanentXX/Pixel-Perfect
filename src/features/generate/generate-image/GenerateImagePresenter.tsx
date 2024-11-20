@@ -52,39 +52,47 @@ const GenerateImage: React.FC = () => {
     setGenerateStatus("loading");
     setProgressText({ value: 0, text: "Connecting to the GPU..." });
 
-    const generationSeed = Math.floor(Math.random() * 0xffffffffffffffff);
-    const sendPrompt = {
-      ...promptRequest,
-      generationSeed,
-    };
+    // const generationSeed = Math.floor(Math.random() * 0xffffffffffffffff);
+    // const sendPrompt = {
+    //   ...promptRequest,
+    //   generationSeed,
+    // };
 
-    const ws = new WebSocket(WS_URL);
-    console.log("Connecting to websocket server...");
+    // const ws = new WebSocket(WS_URL);
+    // console.log("Connecting to websocket server...");
 
-    ws.onerror = (error) => {
-      console.error("Error connecting to websocket server", error);
-      setGenerateStatus("failed");
-    };
+    // ws.onerror = (error) => {
+    //   console.error("Error connecting to websocket server", error);
+    //   setGenerateStatus("failed");
+    // };
 
-    ws.onopen = () => {
-      console.log("Connected to websocket server");
-      ws.send(JSON.stringify(sendPrompt));
-    };
+    // ws.onopen = () => {
+    //   console.log("Connected to websocket server");
+    //   ws.send(JSON.stringify(sendPrompt));
+    // };
 
-    ws.onmessage = (event) => {
-      try {
-        console.log(`Message received: ${event.data}`);
-        const response = JSON.parse(event.data);
-        const imageUrls = response.map((image: string) => ({
-          imageUrl: image,
-        }));
-        setGeneratedImages(imageUrls);
+    // ws.onmessage = (event) => {
+    //   try {
+    //     console.log(`Message received: ${event.data}`);
+    //     const response = JSON.parse(event.data);
+    //     const imageUrls = response.map((image: string) => ({
+    //       imageUrl: image,
+    //     }));
+    //     setGeneratedImages(imageUrls);
+    //     setGenerateStatus("succeeded");
+    //   } catch (e) {
+    //     setGenerateStatus("loading");
+    //     setEventText(event.data);
+    //   }
+    // };
+    const imageUrls = [
+      "https://pixelperfectstorage.blob.core.windows.net/images/59bb8f0e-becc-4905-9fe2-2bd34b126699_54_0.png",
+      "https://pixelperfectstorage.blob.core.windows.net/images/59bb8f0e-becc-4905-9fe2-2bd34b126699_54_1.png",
+      "https://pixelperfectstorage.blob.core.windows.net/images/59bb8f0e-becc-4905-9fe2-2bd34b126699_54_2.png",
+      "https://pixelperfectstorage.blob.core.windows.net/images/59bb8f0e-becc-4905-9fe2-2bd34b126699_54_3.png"
+    ].map(url => ({ imageUrl: url }));
+    setGeneratedImages(imageUrls);
         setGenerateStatus("succeeded");
-      } catch (e) {
-        setGenerateStatus("loading");
-        setEventText(event.data);
-      }
-    };
   };
 
   useEffect(() => {
