@@ -31,7 +31,7 @@ const initialState: AuthState = {
   resetEmailState: "idle",
   adminKey: null, // Holds the authentication token or key
 };
-export const validateLogin = createAsyncThunk("auth/validateLogin", 
+export const  validateLogin = createAsyncThunk("auth/validateLogin", 
   async ({ username, password }:{
     username:string,
     password:string
@@ -174,6 +174,9 @@ const authSlice = createSlice({
       state.authState = "idle";
       state.resetEmailState = "idle";
     },
+    initializeAuthFromCookie: (state, action) => {
+      state.adminKey = action.payload;
+    },
 
   },
   extraReducers: (builder) => {
@@ -228,4 +231,4 @@ const authSlice = createSlice({
 
 // Export the reducer
 export default authSlice.reducer;
-export const { resetAuthState} = authSlice.actions;
+export const { resetAuthState,initializeAuthFromCookie} = authSlice.actions;

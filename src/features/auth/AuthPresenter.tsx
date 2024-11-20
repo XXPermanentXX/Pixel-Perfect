@@ -1,11 +1,13 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import LoginForm from "./LoginFormView";
 
 import { useFormField } from "@/hooks/useFormField";
 import { AppDispatch, RootState } from "@/provider";
-import { logout, sendPasswordReset, signIn, updateUserData } from "@/models/user/authSlice";
+import { initializeAuthFromCookie, logout, sendPasswordReset, signIn, updateUserData, validateLogin } from "@/models/user/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 export type LoginModeType = "emailPwd" | "emailCode";
 
@@ -14,6 +16,9 @@ const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const authState = useSelector((state: RootState) => state.auth.authState);
+  const adminKey = useSelector((state:RootState) => state.auth.adminKey)
+  const navigate = useNavigate()
+  const [cookies, setCookie] = useCookies(["admin_key"]);
   const [isRememberMe, setIsRememberMe] = useState(false);
   const resetEmailState = useSelector(
     (state: RootState) => state.auth.resetEmailState
@@ -37,12 +42,26 @@ const Login: React.FC = () => {
     },
   });
   useLayoutEffect(() => {
-    if (authState === "succeeded") {
-       // Set a cookie when logged in
-       setCookie("admin_key", adminKey, { path: "/", sameSite: "strict", secure: true, maxAge: 3600 });
-       navigate("/generate/model");
-  }, [authState, dispatch]);
+    const login = async () => {
+      if (authState === "succeeded") {
+        // Set a cookie when logged in
+        await dispatch(validateLogin({username:"admin",password:"admin@123"}));
+        setCookie("admin_key", adminKey, { path: "/", sameSite: "strict", secure: true, maxAge: 3600 });
+        navigate("/generate/model");
+      }
+    };
+    login();
+  }, [authState, dispatch]
+);
 
+  useEffect(() => {
+    const storedAdminKey = cookies.admin_key;
+    if (storedAdminKey) {
+      // You can now use the storedAdminKey for any logic you need
+      console.log("Stored Admin Key:", storedAdminKey);
+      dispatch(initializeAuthFromCookie(storedAdminKey));
+    }
+  }, [dispatch, cookies]);
   const handleLogin = () => {
     dispatch(
       signIn({
