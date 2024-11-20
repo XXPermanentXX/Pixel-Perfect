@@ -37,7 +37,7 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRe
             placeholder="How do you imagine your product being used?"
             variant="bordered"
             disableAutosize
-            value={promptRequest.prompt}
+            value={promptText}
             onValueChange={(val) => {
               setPromptRequest({...promptRequest,prompt:val});
             }}

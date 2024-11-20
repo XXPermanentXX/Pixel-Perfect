@@ -6,7 +6,6 @@ import { mapPromptToSettings } from "@/utilities";
 import { setHistoryImageData } from "./history/historyData";
 import { User } from "./user/types";
 import { updateUserData } from "./user/authSlice";
-// import { setHistoryImageData } from "./firebaseModel";
 
 interface GenerateState {
   loaderText: string;
