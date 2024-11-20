@@ -39,7 +39,9 @@
   .bg-generate-page {
     @apply bg-[url('../src/assets/background/bg-generate-page.png')] bg-cover bg-center;
   }
-  
+  .bg-form-page {
+    @apply bg-[url('../src/assets/background/bg-login&request-demo-page.png')] bg-cover bg-center;
+  }
 
   .text-gradient {
     background-image: linear-gradient(to right, #ff3bff 0%, #ecbfbf 30%, #5c24ff 80%, #d94fd5 100%);
