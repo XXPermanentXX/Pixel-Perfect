@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import ProjectHistoryView from "@/features/generate/project-history/ProjectHistoryView";
 import { useDisclosure } from "@nextui-org/react";
 import ImageModal from "@/ui/ImageModal";
-import { deleteHistoryImageDataByURL, getHistoryImageData } from "@/store/models/firebaseModel";
+import { deleteHistoryImageDataByURL, getHistoryImageData } from "@/models/history/historyData";
+import { useSelector } from "react-redux";
+import { RootState } from "@/provider";
 
 
 // define the interface type
@@ -14,10 +16,11 @@ const ProjectHistory: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageList, setImageList] = useState<ImageType[]>([]);
+  const user = useSelector((state:RootState) => state.auth.user)
 
   const handleDelete = () => {
     if (selectedImage) {
-      deleteHistoryImageDataByURL(selectedImage)
+      deleteHistoryImageDataByURL(selectedImage,user?.userId || "")
         .then(() => {
           // update the image list after deleting the image
           setImageList((prevList) => prevList.filter((image) => image.src !== selectedImage));
@@ -35,7 +38,7 @@ const ProjectHistory: React.FC = () => {
   };
 
   useEffect(() => {
-    getHistoryImageData(setImageList);
+    getHistoryImageData(setImageList,user?.userId || '');
   }, []);
 
   return (
