@@ -58,7 +58,7 @@ export interface FormInputProps {
   value?:string,
   onValueChange?: any;
   [key: string]: any;
-  errorMessage: string;
+  errorMessage: string | null;
   items?: string[];
 }
 

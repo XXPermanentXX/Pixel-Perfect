@@ -6,6 +6,7 @@ import { UseFormFieldReturn } from "@/hooks/useFormField";
 import { EyeFilledIcon } from "../../ui/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../ui/EyeSlashFilledIcon";
 import { RESET_MESSAGES } from "@/models/staticDataModel";
+import FormInput from "@/ui/FormInput";
 
 interface AuthViewProps {
   emailField: UseFormFieldReturn;
@@ -42,7 +43,9 @@ const LoginForm: React.FC<AuthViewProps> = ({
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center">
       {isForgotPassword ? (
-        "🔒 Reset your password"
+        <div className="flex flex-col items-center space-y-5">
+          <h3 className="text-center font-semibold">🔒 Reset your password</h3>
+        </div>
       ) : (
         <div className="flex flex-col items-center space-y-5">
           <h3 className="text-center font-semibold">
@@ -54,64 +57,44 @@ const LoginForm: React.FC<AuthViewProps> = ({
         </div>
       )}
 
-      {isForgotPassword ? (
-        <>
-          <div className="h-[75px]">
-            <Input
-              isRequired
+      <div className="pb-10 pt-16 w-[400px]">
+        {isForgotPassword ? (
+          <>
+            <div className="h-[75px]">
+              <FormInput
+                errorMessage={emailField.error}
+                isInvalid={emailField.isInvalid}
+                label="Email"
+                description={
+                  RESET_MESSAGES[resetEmailState] || RESET_MESSAGES.default
+                }
+                value={emailField.value}
+                onChange={emailField.onChange}
+                onKeyDown={handleKeyDown}
+                classNames={{
+                  input: ["text-white"],
+                  inputWrapper: [
+                    "border-default-400 data-[hover=true]:border-default-500",
+                  ],
+                  description:
+                    resetEmailState === "succeeded"
+                      ? "text-green-500"
+                      : "text-red-500",
+                }}
+              ></FormInput>
+            </div>
+          </>
+        ) : (
+          <>
+            <FormInput
               errorMessage={emailField.error}
               isInvalid={emailField.isInvalid}
               label="Email"
-              labelPlacement="outside"
-              placeholder="Enter your email"
-              description={
-                RESET_MESSAGES[resetEmailState] || RESET_MESSAGES.default
-              }
               value={emailField.value}
-              variant="bordered"
               onChange={emailField.onChange}
               onKeyDown={handleKeyDown}
-              classNames={{
-                description:
-                  resetEmailState === "succeeded"
-                    ? "text-green-500"
-                    : "text-red-500",
-              }}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="pb-10 pt-16 w-[400px]">
-          <div className="h-[75px]">
-            <Input
-              isRequired
-              errorMessage={emailField.error}
-              isInvalid={emailField.isInvalid}
-              label="Email"
-              labelPlacement="outside"
-              placeholder="Enter your email"
-              value={emailField.value}
-              variant="bordered"
-              onChange={emailField.onChange}
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div className="h-[75px]">
-            <Input
-              isRequired
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={() => setIsVisible(!isVisible)}
-                >
-                  {isVisible ? (
-                    <EyeFilledIcon className="text-gray-400" />
-                  ) : (
-                    <EyeSlashFilledIcon className="text-gray-400" />
-                  )}
-                </button>
-              }
+            ></FormInput>
+            <FormInput
               errorMessage={
                 authState === "failed"
                   ? "Incorrect Password"
@@ -119,65 +102,98 @@ const LoginForm: React.FC<AuthViewProps> = ({
               }
               isInvalid={authState === "failed" || passwordField.isInvalid}
               label="Password"
-              labelPlacement="outside"
-              placeholder="Enter your password"
               type={isVisible ? "text" : "password"}
               value={passwordField.value}
-              variant="bordered"
               onChange={passwordField.onChange}
               onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div className="flex justify-end pr-1 -mt-4">
-            <Link
-              className="text-cyan-500"
-              onClick={() => setIsForgotPassword(true)}
-              size="sm"
-            >
-              Forgot password?
-            </Link>
-          </div>
-          <div className="flex pt-2 px-1 justify-center">
-            <Checkbox
-              isSelected={isRememberMe}
-              onValueChange={(value) => {
-                setIsRememberMe(value);
-              }}
-              classNames={{
-                label: "text-small",
-              }}
-            >
-              Remember me
-            </Checkbox>
-          </div>
-        </div>
-      )}
+              endContent={
+                passwordField.value !== "" && (
+                <button
+                  className="focus:outline-none"
+                  type="button"
+                  onClick={() => setIsVisible(!isVisible)}
+                >
+                  {isVisible ? (
+                    <EyeFilledIcon className="text-gray-400 text-xl" />
+                  ) : (
+                    <EyeSlashFilledIcon className="text-gray-400 text-xl" />
+                  )}
+                </button>)
+              }
+            ></FormInput>
+            <div className="flex justify-end pr-1 -mt-4">
+              <Link
+                className="text-default-500"
+                onClick={() => setIsForgotPassword(true)}
+                size="sm"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <div className="flex pt-2 px-1 justify-center">
+              <Checkbox
+                isSelected={isRememberMe}
+                onValueChange={(value) => {
+                  setIsRememberMe(value);
+                }}
+
+                classNames={{
+                  wrapper: "before:border-default-500",
+                  label: "text-small text-default-500",
+                }}
+              >
+                Remember me
+              </Checkbox>
+            </div>
+          </>
+        )}
+      </div>
 
       {isForgotPassword ? (
         <div className="flex justify-center w-full gap-2">
           <Button
-            color="default"
-            variant="flat"
+            size="lg"
+            radius="full"
+            variant="solid"
+            color="primary"
+            className="w-48 bg-white text-primary"
             onPress={() => setIsForgotPassword(false)}
           >
-            Back
+            BACK
           </Button>
           <Button
+            size="lg"
+            radius="full"
+            variant="solid"
             color="primary"
+            className="w-48"
             onPress={handleForgotPassword}
             isLoading={resetEmailState === "loading"}
             isDisabled={emailField.isInvalid || emailField.value === ""}
+            spinner={<Spinner color="white" size="sm" />}
           >
-            Reset
+            RESET
           </Button>
         </div>
       ) : (
         <div className="flex justify-center space-x-10">
-          <Button  size="lg" radius="full" variant="solid" color="primary" className="w-48 bg-white text-primary" as={Link} href="/">
-            Back
+          <Button
+            size="lg"
+            radius="full"
+            variant="solid"
+            color="primary"
+            className="w-48 bg-white text-primary"
+            as={Link}
+            href="/"
+          >
+            BACK
           </Button>
           <Button
-            size="lg" radius="full" variant="solid" color="primary" className="w-48"
+            size="lg"
+            radius="full"
+            variant="solid"
+            color="primary"
+            className="w-48"
             isLoading={authState === "loading"}
             isDisabled={
               emailField.isInvalid ||
@@ -188,7 +204,7 @@ const LoginForm: React.FC<AuthViewProps> = ({
             spinner={<Spinner color="white" size="sm" />}
             onPress={handleLogin}
           >
-            Log in
+            LOGIN
           </Button>
         </div>
       )}
