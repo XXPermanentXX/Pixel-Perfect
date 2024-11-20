@@ -20,11 +20,8 @@ const GenerateSettingView = ({ productList, styleList, aspectRatioList, promptRe
   const aspectRatioRender = aspectRatioList.map((aspectRatio) => {
     return <Tab key={aspectRatio.id} title={aspectRatio.title} />;
   });
-
+  const { productModel, promptText, imageStyle, aspectRatio } = useSelector((state:RootState) => state.generate.generateSettings);
   const scrollContainerRef = useRef(null);
-  const productModel = useSelector((state:RootState) => state.auth.user?.promptRequest.initialProduct) || productList[0].name
-  const imageStyle = useSelector((state:RootState) => state.auth.user?.promptRequest.initialStyle) || styleList[0].name
-  const aspectRatio = useSelector((state:RootState) => state.auth.user?.promptRequest.aspectRatio) || aspectRatioList[0].title
 
 
   return (

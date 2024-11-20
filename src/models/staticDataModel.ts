@@ -217,8 +217,6 @@ const INITIAL_PROMPT: Prompt = {
   generationSeed: "",
   diffusionSteps: 20,
   refine: true,
-  initialProduct:PRODUCT_LIST[0].name,
-  initialStyle:STYLE_LIST[0].name
   
 };
 const AVATAR_URLS = [

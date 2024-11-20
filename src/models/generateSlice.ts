@@ -99,7 +99,7 @@ const generateSlice = createSlice({
       state.productStatus = "idle";
     },
     setPromptRequest(state, action) {
-      const prompt = action.payload
+      const prompt = {...action.payload}
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
       console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },

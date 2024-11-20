@@ -53,10 +53,10 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
           // Find the new selected item based on newSelectedId
           const newSelectedItem = items.find((item) => item.name === newSelectedName);
           if ( newSelectedItem && "lora_model_name" in newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word,initialProduct: newSelectedItem.name }));
+            setPromptRequest((prev)=>({...prev, model: newSelectedItem.lora_model_name, triggerWord: newSelectedItem.trigger_word }));
             // navigate(`/generate/model/${newSelectedName}`);
           } else if (newSelectedItem) {
-            setPromptRequest((prev)=>({...prev, keywords: newSelectedItem.keywords.split(","),initialStyle:newSelectedItem.name }));
+            setPromptRequest((prev)=>({...prev, keywords: newSelectedItem.keywords.split(",")}));
           }
 
         }}
