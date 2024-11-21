@@ -12,14 +12,13 @@ import { Prompt } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
-import { setPromptRequest as setPromptRequestSlice } from "@/models/generateSlice";
+import { setPromptRequest } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
 import { setHistoryImageData } from "@/models/history/historyData";
 
 const GenerateImage: React.FC = () => {
-  const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest)
-  const promptRequest = useRef(promptRequestSlice || INITIAL_PROMPT)
+  const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
   const [generatedImages, setGeneratedImages] = useState<
     { imageUrl: string }[]
   >([]);
@@ -43,10 +42,12 @@ const GenerateImage: React.FC = () => {
   },[])
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
-    const _promptRequest = {...promptRequest.current,...newPromptRequest}
-    promptRequest.current = _promptRequest;
-    if(_promptRequest.model) {
-      dispatch(setPromptRequestSlice(_promptRequest));
+    console.log("promptRequest.current",promptRequestSlice);
+    const _promptRequest = {...promptRequestSlice,...newPromptRequest}
+    console.log("_promptRequest",_promptRequest);
+    console.log("newPromptReauest",newPromptRequest);
+    if(_promptRequest.model && newPromptRequest.model) {
+      dispatch(setPromptRequest(_promptRequest));
       dispatch(updateUserData({promptRequest:_promptRequest}));
     }
   };
@@ -56,7 +57,7 @@ const GenerateImage: React.FC = () => {
 
     const generationSeed = Math.floor(Math.random() * 0xffffffffffffffff);
     const sendPrompt = {
-      ...promptRequest,
+      ...promptRequestSlice,
       generationSeed,
     };
 
@@ -126,7 +127,7 @@ const GenerateImage: React.FC = () => {
             productList={PRODUCT_LIST}
             styleList={STYLE_LIST}
             aspectRatioList={ASPECT_RATIO_LIST}
-            promptRequest={promptRequest.current}
+            promptRequest={promptRequestSlice}
             setPromptRequest={handlePromptRequestChange}
             handleGenerate={handleGenerate}
             generateStatus={generateStatus}

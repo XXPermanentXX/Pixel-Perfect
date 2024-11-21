@@ -36,6 +36,8 @@ import ChooseProductView from "./chooseProductView";
 import { getProductData,  setPromptRequest } from "@/models/generateSlice";
 import { setSidebarExpanded } from "@/models/AppSlice"
 import { AppDispatch, RootState } from "@/provider";
+import { updateUserData } from "@/models/user/authSlice";
+import { INITIAL_PROMPT } from "@/models/staticDataModel";
 
 export interface Product {
   name: string;
@@ -51,7 +53,7 @@ const ChooseProduct: React.FC = () => {
   const productList = useSelector((state: any) => state.generate.productsData);
   const productStatus = useSelector((state: any) => state.generate.productStatus);
   const [isReady, setIsReady] = useState(false);
-  const promptRequest = useSelector((state:RootState) => state.auth.user?.promptRequest)
+  const promptRequest = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
   const user = useSelector((state:RootState) => state.auth.user)
 
   useEffect(() => {
@@ -66,13 +68,19 @@ const ChooseProduct: React.FC = () => {
 
   const handleSelectProduct = (product: Product) => {
     dispatch(setSidebarExpanded(false));
+    const _promptRequest = {
+      ...promptRequest,
+      model: product.lora_model_name,
+      triggerWord: product.trigger_word,
+    }
     dispatch(
-      setPromptRequest({
-        ...promptRequest,
-        model: product.lora_model_name,
-        triggerWord: product.trigger_word,
-      }),
+      setPromptRequest(_promptRequest),
     );
+    dispatch(updateUserData(
+    {
+      promptRequest:_promptRequest
+   }
+  ));
     navigate(`/generate/model/${product.name}`);
   };
 
