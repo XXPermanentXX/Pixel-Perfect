@@ -6,13 +6,15 @@ import generateReducer from "@/models/generateSlice";
 import appReducer from "@/models/AppSlice"
 import projectHistoryReducer from "@/models/projectHistorySlice";
 import authReducer from "@/models/user/authSlice"
+import requestDemoReducer from "@/models/requestDemoSlice"
 
 const store = configureStore({
   reducer: {
     app:appReducer,
     generate: generateReducer,
     projectHistory: projectHistoryReducer,
-    auth: authReducer
+    auth: authReducer,
+    requestDemo:requestDemoReducer
   },
 });
 export function Provider({ children }: { children: React.ReactNode }) {
