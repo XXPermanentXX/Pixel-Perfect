@@ -5,7 +5,7 @@ import LoginForm from "./LoginFormView";
 
 import { useFormField } from "@/hooks/useFormField";
 import { AppDispatch, RootState } from "@/provider";
-import { initializeAuthFromCookie, logout, sendPasswordReset, signIn, updateUserData, validateLogin } from "@/models/user/authSlice";
+import { initializeAuthFromCookie, sendPasswordReset, signIn, validateLogin } from "@/models/user/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -14,7 +14,6 @@ export type LoginModeType = "emailPwd" | "emailCode";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.auth.user);
   const authState = useSelector((state: RootState) => state.auth.authState);
   const adminKey = useSelector((state:RootState) => state.auth.adminKey)
   const navigate = useNavigate()
@@ -71,11 +70,6 @@ const Login: React.FC = () => {
       })
     );
   };
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
   const handleForgotPassword = () => {
     dispatch(sendPasswordReset(emailField.value));
   };
