@@ -1,9 +1,9 @@
 import { Button, Tab, Tabs, Textarea } from "@nextui-org/react";
-import  { SetStateAction, useRef } from "react";
+import  { useRef } from "react";
 import ImageSelect from "@/ui/ImageSelect";
 import { AspectRatio, Status, ProductsItem, Prompt, StyleItem } from "@/models/types";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/provider";
+import { useSelector } from "react-redux";
+import { RootState } from "@/provider";
 
 
 interface GenerateSettingViewProps {
