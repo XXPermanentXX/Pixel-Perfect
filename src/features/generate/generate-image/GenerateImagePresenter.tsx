@@ -82,6 +82,7 @@ const GenerateImage: React.FC = () => {
         const imageUrls = response.map((image: string) => ({
           imageUrl: image,
         }));
+        console.log(response);
         setHistoryImageData(response, user?.userId!)
         setGeneratedImages(imageUrls);
         setGenerateStatus("succeeded");

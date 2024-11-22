@@ -15,7 +15,7 @@ import { db } from "@/models/firebaseModel";
 const setHistoryImageData = async (urlList: GeneratedImage[], userId: string) => {
   const historyRef = collection(db, "users", userId, "history");
   
-  const promises = urlList.map(({ url }) => {
+  const promises = urlList.map((url ) => {
     return addDoc(historyRef, {
       id: uuidv4(),
       url: url,
