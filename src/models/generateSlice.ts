@@ -98,7 +98,7 @@ const generateSlice = createSlice({
     },
     setPromptRequest(state, action) {
       const prompt = {...action.payload}
-      console.log(prompt);
+      console.log('setPromptRequest',prompt);
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
       console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },
@@ -111,6 +111,7 @@ const generateSlice = createSlice({
     updateLoaderText: (state, action) => {
       state.loaderText = action.payload;
     },
+    
 
   },
   extraReducers: (builder) => {

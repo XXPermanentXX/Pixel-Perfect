@@ -6,6 +6,7 @@ import Sidebar from "@/ui/Sidebar";
 import { Route, Routes } from "react-router-dom";
 
 const GeneratePage = () => {
+  
   return (
     <div className="bg-generate-page flex overflow-hidden">
       {/* Sidebar */}

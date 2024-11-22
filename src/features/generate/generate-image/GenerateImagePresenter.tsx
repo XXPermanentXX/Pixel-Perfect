@@ -12,11 +12,12 @@ import { Prompt } from "@/models/types";
 import { WS_URL } from "@/models/apiConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
-import { setPromptRequest } from "@/models/generateSlice";
+import { getProductData, setPromptRequest } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
 import { setHistoryImageData } from "@/models/history/historyData";
 import { backIcon } from "../../../assets";
+import { useNavigate } from "react-router-dom";
 
 const GenerateImage: React.FC = () => {
   const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
@@ -36,20 +37,40 @@ const GenerateImage: React.FC = () => {
   });
 
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const user = useSelector((state:RootState) => state.auth.user)
+  const productList = useSelector((state: any) => state.generate.productsData);
 
+
+  const sentPrompt = async (promptRequest:Prompt) => {
+    dispatch(setPromptRequest(promptRequest));
+    dispatch(updateUserData({promptRequest:promptRequest}));
+  }
+  
   useEffect(() => {
-            dispatch(setSidebarExpanded(false));
-  },[])
-  const handleBack = () => {
+    console.log(user);
+    if (productList.length > 0) {
+      if(user){
+        dispatch(setSidebarExpanded(false));
+        
+        dispatch(setPromptRequest(user.promptRequest));
+      }
+  } else {
+    dispatch(getProductData());
+  }
+  },[dispatch,user?.userId])
+  const handleBack = async () => {
     // back的逻辑写在这里
+    sentPrompt(INITIAL_PROMPT)
+    console.log('clearr');
+    dispatch(setSidebarExpanded(true));
+    navigate("/generate/model");
   };
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
     const _promptRequest = {...promptRequestSlice,...newPromptRequest}
     if(_promptRequest.model && newPromptRequest.model) {
-      dispatch(setPromptRequest(_promptRequest));
-      dispatch(updateUserData({promptRequest:_promptRequest}));
+      sentPrompt(_promptRequest)
     }
   };
   const handleGenerate = () => {
