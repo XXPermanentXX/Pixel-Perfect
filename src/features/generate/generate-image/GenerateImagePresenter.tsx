@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GenerateSettingView from "./GenerateSettingView";
 import GenerateResultsView from "./GenerateResultsView";
-import { Divider } from "@nextui-org/react";
+import { Button, Divider } from "@nextui-org/react";
 import {
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,
@@ -16,6 +16,7 @@ import { setPromptRequest } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
 import { setHistoryImageData } from "@/models/history/historyData";
+import { backIcon } from "../../../assets";
 
 const GenerateImage: React.FC = () => {
   const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
@@ -40,6 +41,9 @@ const GenerateImage: React.FC = () => {
   useEffect(() => {
             dispatch(setSidebarExpanded(false));
   },[])
+  const handleBack = () => {
+    // back的逻辑写在这里
+  };
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
     const _promptRequest = {...promptRequestSlice,...newPromptRequest}
@@ -117,8 +121,13 @@ const GenerateImage: React.FC = () => {
   }, [generateStatus,eventText]);
 
   return (
-    <div className="h-full w-full flex-col p-[60px]">
-      <div className="flex h-[calc(100%)] w-full">
+    <div className="h-full w-full flex-col pb-[60px]">
+            <div className="flex h-[100px] items-center pl-[50px]">
+        <Button variant="light" size="lg" startContent={<img src={backIcon} alt="back" />} onClick={handleBack}>
+          BACK
+        </Button>
+      </div>
+      <div className="flex h-[calc(100%-100px)] w-full">
         <div className="flex w-1/3 min-w-[420px] max-w-[600px] pl-[50px] pr-[10px]">
           <GenerateSettingView
             productList={PRODUCT_LIST}
