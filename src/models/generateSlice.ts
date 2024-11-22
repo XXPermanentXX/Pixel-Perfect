@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_KEY, BASE_URL, WS_URL } from "./apiConfig";
-import { INITIAL_PROMPT, STYLE_LIST } from "./staticDataModel";
-import { ProductsItem, Prompt, Status } from "./types";
+import { STYLE_LIST } from "./staticDataModel";
+import { ProductsItem, Status } from "./types";
 import { mapPromptToSettings } from "@/utilities";
 import { setHistoryImageData } from "./history/historyData";
 import { User } from "./user/types";
-import { updateUserData } from "./user/authSlice";
 
 interface GenerateState {
   loaderText: string;

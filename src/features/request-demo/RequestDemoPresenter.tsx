@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import RequestDemoFormView from "./RequestDemoFormView";
 import RequestDemoConfirmedView from "./RequestDemoConfirmedView";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const RequestDemoPresenter = () => {
     firstName: "",
     lastName: "",
     email: "",
-    companysize: "",
+    companySize: "",
     industry: "",
     requestContent: "",
   });
@@ -26,7 +26,7 @@ const RequestDemoPresenter = () => {
     firstName: true,
     lastName: true,
     email: true,
-    companysize: true,
+    companySize: true,
     industry: true,
     requestContent: true,
   });
@@ -78,7 +78,7 @@ const RequestDemoPresenter = () => {
       firstName: validateField(formState.firstName),
       lastName: validateField(formState.lastName),
       email: validateEmail(formState.email),
-      companysize: validateField(formState.companysize),
+      companySize: validateField(formState.companySize),
       industry: validateField(formState.industry),
       requestContent: validateField(formState.requestContent),
     };

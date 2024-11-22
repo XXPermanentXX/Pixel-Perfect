@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GenerateSettingView from "./GenerateSettingView";
 import GenerateResultsView from "./GenerateResultsView";
 import { Divider } from "@nextui-org/react";
@@ -42,10 +42,7 @@ const GenerateImage: React.FC = () => {
   },[])
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
-    console.log("promptRequest.current",promptRequestSlice);
     const _promptRequest = {...promptRequestSlice,...newPromptRequest}
-    console.log("_promptRequest",_promptRequest);
-    console.log("newPromptReauest",newPromptRequest);
     if(_promptRequest.model && newPromptRequest.model) {
       dispatch(setPromptRequest(_promptRequest));
       dispatch(updateUserData({promptRequest:_promptRequest}));
