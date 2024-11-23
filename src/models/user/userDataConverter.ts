@@ -20,8 +20,8 @@ export const userDataConverter: FirestoreDataConverter<User> = {
       avatarUrl: data.avatarUrl,
       email: data.email,
       promptRequest:data.promptRequest,
-      initialProduct:data.initialProduct,
-      initialStyle:data.initialStyle
+      // initialProduct:data.initialProduct,
+      // initialStyle:data.initialStyle
     };
   }
 };

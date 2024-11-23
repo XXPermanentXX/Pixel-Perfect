@@ -25,7 +25,7 @@ const RequestDemoFormView = ({ formState, fieldValidity, onInputChange, submitRe
           <FormInput type="email" label="Work email" value={email} onValueChange={onInputChange("email")} isInvalid={!fieldValidity.email ? 1 : false} errorMessage="Please enter a valid email" />
         </div>
         <div className="flex space-x-10">
-          <FormSelect label="Company size" placeholder="Select a number.." items={companySizes} onSelectionChange={onInputChange("companysize")} isInvalid={!fieldValidity.companysize ? 1 : false} errorMessage="Please select your company size" />
+          <FormSelect label="Company size" placeholder="Select a number.." items={companySizes} onSelectionChange={onInputChange("companySize")} isInvalid={!fieldValidity.companySize ? 1 : false} errorMessage="Please select your company size" />
           <FormSelect label="Industry" placeholder="Select an industry.." items={industries} onSelectionChange={onInputChange("industry")} isInvalid={!fieldValidity.industry ? 1 : false} errorMessage="Please select your industry" />
         </div>
         <div>

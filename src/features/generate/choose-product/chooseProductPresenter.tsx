@@ -60,6 +60,10 @@ const ChooseProduct: React.FC = () => {
     if (productList.length > 0) {
         if (user && promptRequest) {
             setIsReady(true);
+            if(promptRequest.model) {
+              const product = productList.find((product: { lora_model_name: string; }) => product.lora_model_name === promptRequest.model);
+              navigate(`/generate/model/${product.name}`);
+            }
         }
     } else {
       dispatch(getProductData());
@@ -79,7 +83,7 @@ const ChooseProduct: React.FC = () => {
     dispatch(updateUserData(
     {
       promptRequest:_promptRequest
-   }
+}
   ));
     navigate(`/generate/model/${product.name}`);
   };

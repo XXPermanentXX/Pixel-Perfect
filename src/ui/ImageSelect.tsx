@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Image, Select, SelectItem } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Prompt } from "@/models/types";
@@ -28,13 +28,20 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
   // State to track the selected item
   const [selectedName, setSelectedName] = useState<string>(() => {
     if ("lora_model_name" in items[0]) {
+      console.log('product',initialProduct);
       return items.length > 0 ? initialProduct : items[0].name;
     } else if ("keywords" in items[0]) {
       return items.length > 0 ? initialStyle : items[0].name;
     }
     return "";
   });
-
+  useEffect(() => {
+    if ("lora_model_name" in items[0]) {
+      setSelectedName(initialProduct);
+    } else if ("keywords" in items[0]) {
+      setSelectedName(initialStyle);
+    }
+  }, [initialProduct, initialStyle, items]);
   
 
   // const navigate = useNavigate();

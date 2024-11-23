@@ -19,17 +19,17 @@ interface DemoRequestParams {
     firstName: string;
     lastName: string;
     email: string;
-    companysize: string;
+    companySize: string;
     industry: string;
     requestContent: string;
 }
 
 export const putDemoRequest = createAsyncThunk('requestDemo/putDemoRequest', async (params: DemoRequestParams, {rejectWithValue}) => {
     const formData = JSON.stringify({
-        firstName:params.firstName,
-        lastName: params.lastName,
+        first_name:params.firstName,
+        last_name: params.lastName,
         email: params.email,
-        company_size: params.companysize,
+        company_size: params.companySize,
         industry: params.industry,
         product_link: params.requestContent, //Assuming this maps to a "product lin=" field.
     });

@@ -16,7 +16,7 @@ import { User } from "./types";
 import { getUserFromDb, setUserFromDb, updateUserFromDb } from "./userData";
 import { generateRandomAvatarURL, generateRandomUsername } from "./utils";
 import { BASE_URL } from "../apiConfig";
-import { INITIAL_PROMPT, PRODUCT_LIST, STYLE_LIST } from "../staticDataModel";
+import { INITIAL_PROMPT } from "../staticDataModel";
 // Define the authentication state interface
 interface AuthState {
   user: User | null; // Current user
@@ -135,8 +135,26 @@ export const sendPasswordReset = createAsyncThunk(
 // Update user data
 export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
-  async (updatedData: Partial<User>) => {
+  async (updatedData: Partial<User>,{dispatch,getState}) => {
     console.log('updatedData', updatedData);
+    
+    // 获取当前状态
+    const state = getState() as { auth: AuthState };
+    
+    // 更新本地状态
+    const currentUser = state.auth.user;
+    if (currentUser) {
+      const newUserData = { ...currentUser, ...updatedData };
+      
+      // 先更新本地状态
+      dispatch(authSlice.actions.updateLocalUserData(newUserData));
+      
+      // 然后更新数据库
+      await updateUserFromDb(newUserData);
+      return newUserData; // 返回更新后的用户数据
+    }
+    
+    // 如果没有当前用户，直接更新数据库
     await updateUserFromDb(updatedData);
     return updatedData;
   }
@@ -178,7 +196,9 @@ const authSlice = createSlice({
     initializeAuthFromCookie: (state, action) => {
       state.adminKey = action.payload;
     },
-
+    updateLocalUserData: (state, action) => {
+      state.user = action.payload; // 更新本地用户数据
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -198,11 +218,11 @@ const authSlice = createSlice({
       })
 
       // Handle update user data state
-      .addCase(updateUserData.fulfilled, (state, action) => {
-        if (state.user) {
-          state.user = { ...state.user, ...action.payload };
-        }
-      })
+      // .addCase(updateUserData.fulfilled, (state, action) => {
+      //   if (state.user) {
+      //     state.user = { ...state.user, ...action.payload };
+      //   }
+      // })
 
       // Handle get user data state
       .addCase(getUserData.fulfilled, (state, action) => {

@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_KEY, BASE_URL, WS_URL } from "./apiConfig";
-import { INITIAL_PROMPT, STYLE_LIST } from "./staticDataModel";
-import { ProductsItem, Prompt, Status } from "./types";
+import { STYLE_LIST } from "./staticDataModel";
+import { ProductsItem, Status } from "./types";
 import { mapPromptToSettings } from "@/utilities";
 import { setHistoryImageData } from "./history/historyData";
 import { User } from "./user/types";
-import { updateUserData } from "./user/authSlice";
 
 interface GenerateState {
   loaderText: string;
@@ -99,7 +98,7 @@ const generateSlice = createSlice({
     },
     setPromptRequest(state, action) {
       const prompt = {...action.payload}
-      console.log(prompt);
+      console.log('setPromptRequest',prompt);
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
       console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },
@@ -112,6 +111,7 @@ const generateSlice = createSlice({
     updateLoaderText: (state, action) => {
       state.loaderText = action.payload;
     },
+    
 
   },
   extraReducers: (builder) => {

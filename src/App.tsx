@@ -23,6 +23,7 @@ const App: React.FC = () => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (currentUser: FirebaseUser | null) => {
+        console.log(currentUser);
         if (currentUser) {
           dispatch(getUserData(currentUser));
         }
