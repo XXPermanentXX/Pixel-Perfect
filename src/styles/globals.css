@@ -37,10 +37,10 @@
   }
   
   .bg-generate-page {
-    @apply bg-[url('../src/assets/background/bg-generate-page.png')] bg-cover bg-center;
+    @apply bg-[url('/src/assets/background/bg-generate-page.png')] bg-cover bg-center;
   }
   .bg-form-page {
-    @apply bg-[url('../src/assets/background/bg-login&request-demo-page.png')] bg-cover bg-center;
+    @apply bg-[url('/src/assets/background/bg-login&request-demo-page.png')] bg-cover bg-center;
   }
 
   .text-gradient {
