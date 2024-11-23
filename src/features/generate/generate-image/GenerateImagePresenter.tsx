@@ -8,30 +8,21 @@ import {
   PRODUCT_LIST,
   STYLE_LIST ,
 } from "@/models/staticDataModel";
-import { Prompt } from "@/models/types";
-import { WS_URL } from "@/models/apiConfig";
+import { Prompt } from "@/models/types"; 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
-import { getProductData, setPromptRequest } from "@/models/generateSlice";
+import { generateImage, getProductData, setPromptRequest } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
-import { setHistoryImageData } from "@/models/history/historyData";
 import { backIcon } from "../../../assets";
 import { useNavigate } from "react-router-dom";
 
 const GenerateImage: React.FC = () => {
   const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
-  const [generatedImages, setGeneratedImages] = useState<
-    { imageUrl: string }[]
-  >([]);
-  const [generateStatus, setGenerateStatus] = useState<
-    "idle" | "loading" | "succeeded" | "failed"
-  >("idle");
-  const [eventText,setEventText]=useState<string>("")
-  const [progressText, setProgressText] = useState<{
-    value: number;
-    text: string;
-  }>({
+  const generateStatus = useSelector((state:RootState) => state.generate.generateStatus);
+  const generatedImages = useSelector((state:RootState) => state.generate.generatedImages);
+  const loaderText = useSelector((state:RootState) => state.generate.loaderText);
+  const [progressText, setProgressText] = useState({
     value: 0,
     text: "",
   });
@@ -40,6 +31,7 @@ const GenerateImage: React.FC = () => {
   const navigate = useNavigate()
   const user = useSelector((state:RootState) => state.auth.user)
   const productList = useSelector((state: any) => state.generate.productsData);
+  
 
 
   const sentPrompt = async (promptRequest:Prompt) => {
@@ -74,73 +66,49 @@ const GenerateImage: React.FC = () => {
     }
   };
   const handleGenerate = () => {
-    setGenerateStatus("loading");
-    setProgressText({ value: 0, text: "Connecting to the GPU..." });
-
-    const generationSeed = Math.floor(Math.random() * 0xffffffffffffffff);
-    const sendPrompt = {
-      ...promptRequestSlice,
-      generationSeed,
-    };
-
-    const ws = new WebSocket(WS_URL);
-    console.log("Connecting to websocket server...");
-
-    ws.onerror = (error) => {
-      console.error("Error connecting to websocket server", error);
-      setGenerateStatus("failed");
-    };
-
-    ws.onopen = () => {
-      console.log("Connected to websocket server");
-      ws.send(JSON.stringify(sendPrompt));
-    };
-
-    ws.onmessage = (event) => {
-      try {
-        console.log(`Message received: ${event.data}`);
-        const response = JSON.parse(event.data);
-        const imageUrls = response.map((image: string) => ({
-          imageUrl: image,
-        }));
-        console.log(response);
-        setHistoryImageData(response, user?.userId!)
-        setGeneratedImages(imageUrls);
-        setGenerateStatus("succeeded");
-      } catch (e) {
-        setGenerateStatus("loading");
-        setEventText(event.data);
-      }
-    };
+    dispatch(generateImage())
+        .unwrap() // 使用 unwrap() 来处理 fulfilled 和 rejected 状态
+        .then(() => {
+            console.log("Image generated successfully");
+        })
+        .catch((error) => {
+            console.error("Failed to generate image:", error);
+        });
+    console.log("Generate Picture");
   };
 
+  //Processing the loader text to show the progress bar
   useEffect(() => {
-    if (eventText === "Connecting to the GPU...") {
+    if (loaderText === "Connecting to the GPU...") {
       setProgressText({
         value: 0,
         text: "Connecting to the GPU...",
       });
-    } else if (eventText.startsWith("Image generation at")) {
-      const matchResult = eventText.match(/(\d+\.\d+)%/);
-      const percentage = matchResult ? parseFloat(matchResult[1]) / 100 : 0;
-      setProgressText({
-        value: percentage,
-        text: "Generating based on your requirements...",
-      });
-    } else if (eventText.startsWith("Refining the image")) {
-      const matchResult = eventText.match(/(\d+\.\d+)%/);
-      const percentage = matchResult ? parseFloat(matchResult[1]) / 100 : 0;
-      setProgressText({
-        value: percentage,
-        text: "Refining the image...",
-      });
-    } else if (eventText.startsWith("Images are ready")) {
+    } else if (loaderText.startsWith("Image generation at")) {
+      const match = loaderText.match(/(\d+\.\d+)%/);
+      if (match) {
+        const percentage = parseFloat(match[1]) / 100;
+        setProgressText({
+          value: percentage,
+          text: "Generating based on your requirements...",
+        });
+      }
+    } else if (loaderText.startsWith("Refining the image")) {
+      const match = loaderText.match(/(\d+\.\d+)%/);
+      if (match) {
+        const percentage = parseFloat(match[1]) / 100;
+        setProgressText({
+          value: percentage,
+          text: "Refining the image...",
+        });
+      }
+    } else if (loaderText.startsWith("Images are ready")) {
       setProgressText({
         value: 1,
         text: "Images are ready, uploading to the cloud...",
       });
     }
-  }, [generateStatus,eventText]);
+  }, [loaderText]);
 
   return (
     <div className="h-full w-full flex-col pb-[60px]">

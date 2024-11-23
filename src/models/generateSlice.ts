@@ -17,6 +17,7 @@ interface GenerateState {
     imageStyle: string;
     aspectRatio: string;
   }
+  generatedImages:Array<{imageUrl:string}>
 }
 
 const initialState: GenerateState = {
@@ -30,14 +31,15 @@ const initialState: GenerateState = {
     imageStyle: "",
     aspectRatio: "",
   },
+  generatedImages: [],
 };
 
 export const generateImage = createAsyncThunk(
   "generate/handleGenerate",
   async (_, { rejectWithValue, dispatch, getState }) => {
     return new Promise((resolve, reject) => {
-      const state = getState() as { generate: GenerateState; user: User };
-      const promptRequest = state.user.promptRequest;
+      const state = getState() as { generate: GenerateState; auth:{ user: { promptRequest: any,userId:string } } };
+      const promptRequest = state.auth.user.promptRequest;
       const sendPrompt = {
         ...promptRequest,
         generationSeed: Math.floor(Math.random() * 0xffffffffffffffff),
@@ -64,7 +66,7 @@ export const generateImage = createAsyncThunk(
           console.log(`Message received: ${event.data}`);
           const response = JSON.parse(event.data);
           const imageUrls = response.map((image: any) => ({ imageUrl: image }));
-          setHistoryImageData(imageUrls,state.user.userId);
+          setHistoryImageData(response,state.auth.user.userId);
           resolve(imageUrls);
         } catch (e) {
           dispatch(updateLoaderText(event.data));
@@ -96,6 +98,11 @@ const generateSlice = createSlice({
       state.productsData = [];
       state.productStatus = "idle";
     },
+    initialGenerateState: (state) => {
+      state.loaderText = "";
+      state.generatedImages = [];
+      state.generateStatus = "idle";
+    },
     setPromptRequest(state, action) {
       const prompt = {...action.payload}
       console.log('setPromptRequest',prompt);
@@ -111,7 +118,6 @@ const generateSlice = createSlice({
     updateLoaderText: (state, action) => {
       state.loaderText = action.payload;
     },
-    
 
   },
   extraReducers: (builder) => {
@@ -126,6 +132,18 @@ const generateSlice = createSlice({
       })
       .addCase(getProductData.rejected, (state) => {
         state.productStatus = "failed";
+      })
+      .addCase(generateImage.pending, (state) => {
+        state.generateStatus = "loading";
+      })
+      .addCase(generateImage.fulfilled, (state, action) => {
+        if (Array.isArray(action.payload)) {
+          state.generatedImages = action.payload;
+        }
+        state.generateStatus = "succeeded";
+      })
+      .addCase(generateImage.rejected, (state) => {
+        state.generateStatus = "failed";
       });
   },
 });
