@@ -4,14 +4,13 @@ import { NextUIProvider } from "@nextui-org/react";
 import Home from "./pages/Home";
 import RequestDemo from "./pages/RequestDemo";
 import LoginPage from "./pages/Login";
-// import ProtectedRoute from "./features/auth/ProtectedRoute";
+import ProtectRoute from "./features/auth/ProtectRoute";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./provider";
 import { onAuthStateChanged,User as FirebaseUser } from "firebase/auth";
 import { auth } from "./models/firebaseModel";
 import { getUserData } from "./models/user/authSlice";
 
-//todo
 const GeneratePage = lazy(() => import("./pages/Generate"));
 
 
@@ -58,10 +57,10 @@ const App: React.FC = () => {
             path="/generate/*"
             element={
               <Suspense fallback={<div>Loading...</div>}>
-                {/* todo */}
-                {/* <ProtectedRoute> */}
+
+                <ProtectRoute>
                   <GeneratePage />
-                {/* </ProtectedRoute> */}
+                </ProtectRoute>
               </Suspense>
             }
           />
