@@ -20,7 +20,7 @@ const mockData: ImageType[] = [
 
 const ProjectHistoryView: React.FC<ProjectHistoryViewProps> = ({ imageList = mockData, openModal }) => {
   return (
-    <div className="ml-20">
+    <div className="ml-20 relative min-h-[calc(100%-120px)]">
       <h2 className="mb-8 mt-24 text-6xl text-white">My photos</h2>
       {imageList && imageList.length > 0 ? (
         <div className="mr-20 flex flex-wrap gap-[15px]">
@@ -43,7 +43,7 @@ const ProjectHistoryView: React.FC<ProjectHistoryViewProps> = ({ imageList = moc
           ))}
         </div>
       ) : (
-        <p className="text-white">No photos available</p>
+        <div className="text-white text-2xl absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">No photos available</div>
       )}
     </div>
   );
