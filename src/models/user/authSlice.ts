@@ -90,10 +90,8 @@ export const signIn = createAsyncThunk(
       // If the user does not exist, catch the exception and register
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error.code);
       if (error.code === "auth/user-not-found") {
         try {
-          console.log('register');
           // Register and sign in the user
           await createUserWithEmailAndPassword(auth, email, password);
           await signInWithEmailAndPassword(auth, email, password);
