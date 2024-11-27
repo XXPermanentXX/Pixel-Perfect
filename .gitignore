@@ -25,3 +25,6 @@ dist-ssr
 
 # IDE
 *.iml
+
+# hosting
+.firebase/
