@@ -1,25 +1,22 @@
-# Vite & NextUI Template
+## Introduction
+🚀 Try our website: [PixelPerfect AI](https://ai-pixelperfect.web.app/) 
 
-This is a template for creating applications using Vite and NextUI (v2).
+PixelPerfect is an AI-based platform that streamlines marketing and advertising content creation, and personalizes distribution for brands and retailers. During the course, we plan to develop two main pages of our service.
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/vite-template)
+Landing page: 
+- briefly introduce the product and features
+- Request demo, collect customers' contacts and prepare for closed beta release
+- Log in, allow registered or beta users to log in to the console
 
-## Technologies Used
+User console:
+- Select your trained product
+- Text to image generation (style change, aspect ratio, reference image etc.)
+- Manage generate history, view photo, download and delete
 
-- [Vite](https://vitejs.dev/guide/)
-- [NextUI](https://nextui.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+## Technical Framework
+This project is developed using the React framework, with Redux employed for global state management. The UI components extensively utilize NextUI and Tailwind CSS.
 
 ## How to Use
-
-To clone the project, run the following command:
-
-```bash
-git clone https://github.com/nextui-org/vite-template.git
-```
 
 ### Install dependencies
 
@@ -32,17 +29,3 @@ yarn install
 ```bash
 yarn run dev
 ```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/vite-template/blob/main/LICENSE).
