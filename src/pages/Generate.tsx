@@ -2,6 +2,7 @@
 import ChooseProduct from "@/features/generate/choose-product/chooseProductPresenter";
 import GenerateImage from "@/features/generate/generate-image/GenerateImagePresenter";
 import ProjectHistory from "@/features/generate/project-history/ProjectHistoryPresenter";
+import UserInfo from "@/features/user-info/UserInfoPresenter";
 import Sidebar from "@/ui/Sidebar";
 import { Route, Routes } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const GeneratePage = () => {
           <Route path="photos" element={<ProjectHistory />} />
         </Routes>
       </div>
+      <UserInfo></UserInfo>
     </div>
   );
 };

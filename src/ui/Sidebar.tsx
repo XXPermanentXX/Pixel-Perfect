@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PixelPerfectLogo } from "./PixelPerfectLogo";
 import { myModelsIcon, myPhotosIcon, signOutIcon } from "../assets";
-import { Avatar, Tab, Tabs, Button, Tooltip, Modal, ModalContent, ModalFooter } from "@nextui-org/react";
+import { Avatar, Tab, Tabs, Button, Tooltip, Modal, ModalContent, ModalFooter, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../models/user/authSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import { initialProductState, setPromptRequest,  } from "../models/generateSlice
 import { useCookies } from "react-cookie";
 import { AppDispatch, RootState } from "@/provider";
 import { INITIAL_PROMPT } from "@/models/staticDataModel";
+import useModalNavigation from "@/hooks/useModalNavigation";
 
 const sidebarTabViews = [
   { id: "model", title: "My model", icon: myModelsIcon },
@@ -44,6 +45,8 @@ const Sidebar = () => {
     removeCookie("admin_key");
     navigate("/");
   };
+
+  const {handleOpenModal} = useModalNavigation("#user-profile")
 
   const renderTabs = sidebarTabViews.map((view) => {
     const tabContent = (
@@ -99,7 +102,22 @@ const Sidebar = () => {
 
         <div className={`flex items-center pb-[32px] ${userDivDisplay}`}>
           <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center">
-            <Avatar isBordered color="primary" src={user?.avatarUrl} />
+          <Dropdown>
+          <DropdownTrigger>
+            <Avatar
+              showFallback
+              isBordered
+              color={"secondary"}
+              src={user?.avatarUrl}
+              style={{ cursor: "pointer" }}
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="User Actions">
+            <DropdownItem key="profile" onPress={handleOpenModal}>
+              My profile
+            </DropdownItem>
+            </DropdownMenu>
+            </Dropdown>
           </div>
           <h5 className={`flex-shrink-0 overflow-hidden text-nowrap pl-6 transition-all ${userNameWidth}`}>{user?.username}</h5>
           <Tooltip showArrow={true} color="primary" placement={expanded ? "top" : "left"} content={"Sign out"}>
