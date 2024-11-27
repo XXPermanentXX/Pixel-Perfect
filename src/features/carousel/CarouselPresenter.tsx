@@ -22,7 +22,6 @@ const useCarouselIndex = (length: number,delay: number,animationDuration:number)
   const updateIndex = (step:number) => {
     setIndex((prevIndex) => {
       const newIndex = (prevIndex + step + length) % length;
-      console.log(`Updating index from ${prevIndex} to ${newIndex}`);
       return newIndex;
     })
   }
@@ -32,7 +31,6 @@ const useCarouselIndex = (length: number,delay: number,animationDuration:number)
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined ;
     if (autoCycle) {
-      console.log("useEffect is running", { autoCycle, index, targetIndex });
       // Automatically cycle to the next image
       interval = setInterval(() => updateIndex(1), delay);
     } else if (targetIndex !== null && index !== targetIndex) {

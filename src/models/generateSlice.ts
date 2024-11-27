@@ -45,7 +45,6 @@ export const generateImage = createAsyncThunk(
         generationSeed: Math.floor(Math.random() * 0xffffffffffffffff),
       };
       const ws = new WebSocket(WS_URL);
-      console.log("Connecting to websocket server...");
 
       ws.onerror = (error) => {
         console.error("Error connecting to websocket server", error);
@@ -56,14 +55,11 @@ export const generateImage = createAsyncThunk(
       };
 
       ws.onopen = () => {
-        console.log("Connected to websocket server");
-        console.log(`Sending payload: ${JSON.stringify(sendPrompt)}`);
         ws.send(JSON.stringify(sendPrompt));
       };
 
       ws.onmessage = (event) => {
         try {
-          console.log(`Message received: ${event.data}`);
           const response = JSON.parse(event.data);
           const imageUrls = response.map((image: any) => ({ imageUrl: image }));
           setHistoryImageData(response,state.auth.user.userId);
@@ -104,10 +100,8 @@ const generateSlice = createSlice({
       state.generateStatus = "idle";
     },
     setPromptRequest(state, action) {
-      const prompt = {...action.payload}
-      console.log('setPromptRequest',prompt);
+      const prompt = {...action.payload}    
       state.generateSettings = mapPromptToSettings(prompt, state.productsData, STYLE_LIST);
-      console.log("generateSettings: ", mapPromptToSettings(prompt, state.productsData, STYLE_LIST));
     },
     setLocalGenerateSetting: (state, action) => {
       state.generateSettings = {

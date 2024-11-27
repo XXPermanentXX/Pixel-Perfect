@@ -73,7 +73,6 @@ const RequestDemoPresenter = () => {
 
   // Submits the form after validating all fields. If valid, sends the request and fetches the response.
   const handleFormSubmit = async () => {
-    console.log("Submitting form.....");
     const updatedFieldValidity = {
       firstName: validateField(formState.firstName),
       lastName: validateField(formState.lastName),
@@ -87,7 +86,6 @@ const RequestDemoPresenter = () => {
     // Check if all fields in the form are valid.
     const isFormValid = Object.values(updatedFieldValidity).every((value) => value);
     if (isFormValid) {
-      console.log(formState);
       dispatch(putDemoRequest(formState));
     }
   };

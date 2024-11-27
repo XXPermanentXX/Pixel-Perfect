@@ -77,7 +77,6 @@ export const signIn = createAsyncThunk(
     isRememberMe: boolean;
   }, { rejectWithValue }) => {
     try {
-      console.log(email,password);
       if (isRememberMe) {
         await setPersistence(auth, browserLocalPersistence); // Keep the user logged in
       } else {
@@ -134,7 +133,6 @@ export const sendPasswordReset = createAsyncThunk(
 export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
   async (updatedData: Partial<User>,{dispatch,getState}) => {
-    console.log('updatedData', updatedData);
     
     // 获取当前状态
     const state = getState() as { auth: AuthState };

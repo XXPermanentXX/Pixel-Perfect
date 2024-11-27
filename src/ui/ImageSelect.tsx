@@ -28,7 +28,6 @@ function ImageSelect({ items, initialProduct, initialStyle, setPromptRequest }:I
   // State to track the selected item
   const [selectedName, setSelectedName] = useState<string>(() => {
     if ("lora_model_name" in items[0]) {
-      console.log('product',initialProduct);
       return items.length > 0 ? initialProduct : items[0].name;
     } else if ("keywords" in items[0]) {
       return items.length > 0 ? initialStyle : items[0].name;

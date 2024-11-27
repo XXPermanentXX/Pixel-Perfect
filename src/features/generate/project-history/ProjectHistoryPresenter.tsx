@@ -33,7 +33,6 @@ const ProjectHistory: React.FC = () => {
   };
 
   const openModal = (imageSrc: string) => {
-    console.log("Open modal with image: ", imageSrc);
     setSelectedImage(imageSrc);
     onOpen();
   };

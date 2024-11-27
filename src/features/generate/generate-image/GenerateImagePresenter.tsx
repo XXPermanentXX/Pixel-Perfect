@@ -1,77 +1,98 @@
 import React, { useEffect, useState } from "react";
 import GenerateSettingView from "./GenerateSettingView";
 import GenerateResultsView from "./GenerateResultsView";
-import { Button, Divider } from "@nextui-org/react";
+import { Button, Divider, useDisclosure } from "@nextui-org/react";
 import {
   ASPECT_RATIO_LIST,
   INITIAL_PROMPT,
   PRODUCT_LIST,
-  STYLE_LIST ,
+  STYLE_LIST,
 } from "@/models/staticDataModel";
-import { Prompt } from "@/models/types"; 
+import { Prompt } from "@/models/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
-import { generateImage, getProductData, setPromptRequest, initialGenerateState } from "@/models/generateSlice";
+import {
+  generateImage,
+  getProductData,
+  setPromptRequest,
+  initialGenerateState,
+} from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
 import { backIcon } from "../../../assets";
 import { useNavigate } from "react-router-dom";
+import ImageModal from "@/ui/ImageModal";
 
 const GenerateImage: React.FC = () => {
-  const promptRequestSlice = useSelector((state:RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT)
-  const generateStatus = useSelector((state:RootState) => state.generate.generateStatus);
-  const generatedImages = useSelector((state:RootState) => state.generate.generatedImages);
-  const loaderText = useSelector((state:RootState) => state.generate.loaderText);
+  const promptRequestSlice = useSelector(
+    (state: RootState) => state.auth.user?.promptRequest || INITIAL_PROMPT
+  );
+  const generateStatus = useSelector(
+    (state: RootState) => state.generate.generateStatus
+  );
+  const generatedImages = useSelector(
+    (state: RootState) => state.generate.generatedImages
+  );
+  const loaderText = useSelector(
+    (state: RootState) => state.generate.loaderText
+  );
   const [progressText, setProgressText] = useState({
     value: 0,
     text: "",
   });
 
-  const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
-  const user = useSelector((state:RootState) => state.auth.user)
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.auth.user);
   const productList = useSelector((state: any) => state.generate.productsData);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
-  const sentPrompt = async (promptRequest:Prompt) => {
+  const sentPrompt = async (promptRequest: Prompt) => {
     dispatch(setPromptRequest(promptRequest));
-    dispatch(updateUserData({promptRequest:promptRequest}));
-  }
-  
+    dispatch(updateUserData({ promptRequest: promptRequest }));
+  };
+  const openModal = (imageSrc:string) => {
+    setSelectedImage(imageSrc);
+    onOpen();
+  };
+
   useEffect(() => {
-    console.log(user);
     if (productList.length > 0) {
-      if(user){
+      if (user) {
         dispatch(setSidebarExpanded(false));
-        
+
         dispatch(setPromptRequest(user.promptRequest));
       }
-  } else {
-    dispatch(getProductData());
-  }
-  },[dispatch,user?.userId])
+    } else {
+      dispatch(getProductData());
+    }
+  }, [dispatch, user?.userId]);
   const handleBack = async () => {
-    sentPrompt(INITIAL_PROMPT)
-    dispatch(initialGenerateState())
+    sentPrompt(INITIAL_PROMPT);
+    dispatch(initialGenerateState());
     dispatch(setSidebarExpanded(true));
     navigate("/generate/model");
   };
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
-    const _promptRequest = {...promptRequestSlice,...newPromptRequest}
-    if(_promptRequest.model && (newPromptRequest.model || newPromptRequest.keywords)) {
-      sentPrompt(_promptRequest)
+    const _promptRequest = { ...promptRequestSlice, ...newPromptRequest };
+    if (
+      _promptRequest.model &&
+      (newPromptRequest.model || newPromptRequest.keywords)
+    ) {
+      sentPrompt(_promptRequest);
     }
   };
   const handleGenerate = () => {
     dispatch(generateImage())
-        .unwrap() // 使用 unwrap() 来处理 fulfilled 和 rejected 状态
-        .then(() => {
-            console.log("Image generated successfully");
-        })
-        .catch((error) => {
-            console.error("Failed to generate image:", error);
-        });
-    console.log("Generate Picture");
+      .unwrap()
+      .then(() => {
+        console.log("Image generated successfully");
+      })
+      .catch((error) => {
+        console.error("Failed to generate image:", error);
+      });
   };
 
   //Processing the loader text to show the progress bar
@@ -109,8 +130,13 @@ const GenerateImage: React.FC = () => {
 
   return (
     <div className="h-full w-full flex-col pb-[60px]">
-            <div className="flex h-[100px] items-center pl-[50px]">
-        <Button variant="light" size="lg" startContent={<img src={backIcon} alt="back" />} onClick={handleBack}>
+      <div className="flex h-[100px] items-center pl-[50px]">
+        <Button
+          variant="light"
+          size="lg"
+          startContent={<img src={backIcon} alt="back" />}
+          onClick={handleBack}
+        >
           BACK
         </Button>
       </div>
@@ -132,9 +158,13 @@ const GenerateImage: React.FC = () => {
             generateStatus={generateStatus}
             progressText={progressText}
             imageList={generatedImages}
-            openModal={(imageUrl: string) =>
-              console.log("Open modal with image:", imageUrl)
-            }
+            openModal={openModal}
+          />
+          <ImageModal
+            isOpen={isOpen}
+            onClose={onClose}
+            imageSrc={selectedImage}
+            showDeleteButton={false}
           />
         </div>
       </div>

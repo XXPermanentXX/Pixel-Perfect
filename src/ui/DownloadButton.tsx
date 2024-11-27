@@ -8,8 +8,6 @@ interface DownloadButtonProps {
 }
 
 const DownloadButton: React.FC<DownloadButtonProps> = ({ imageUrl }) => {
-  console.log("Download button imageUrl: ", imageUrl);
-
   return (
     <Button
       className="absolute bottom-2 right-2 z-10 p-1 pr-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100"

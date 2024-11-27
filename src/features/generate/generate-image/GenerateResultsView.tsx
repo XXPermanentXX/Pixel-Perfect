@@ -36,7 +36,7 @@ const GenerateResultsView = ({ generateStatus, progressText, imageList, openModa
         return (
           <div className=" grid h-full grid-cols-2 gap-4 p-4">
             {imageList.map((image, index) => (
-              <div key={index} className={`group relative flex overflow-hidden rounded-2xl ${index % 2 === 0 ? "justify-end" : "justify-start"}`}>
+              <div key={index} className={`group relative flex overflow-hidden rounded-2xl ${index % 2 === 0 ? "justify-end" : "justify-start"} cursor-pointer`}>
                 <img src={image.imageUrl} alt={"generate result"} className="transition-scale h-full w-full object-cover duration-300 ease-in-out hover:scale-110" onClick={() => openModal(image.imageUrl)} />
                 <DownloadButton imageUrl={image.imageUrl} />
               </div>

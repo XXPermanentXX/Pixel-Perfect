@@ -1,33 +1,3 @@
-// import ChooseProductView from "./chooseProductView";
-
-// const mockProducts = [
-//   {
-//     name: "Product 1",
-//     thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-//   },
-//   {
-//     name: "Product 2",
-//     thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-//   },
-//   {
-//     name: "Product 3",
-//     thumbnail: "https://th.bing.com/th/id/OIP.ThRuhUBIyjg4RPQLDYBN2AHaHa?w=177&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-//   },
-// ];
-
-// const handleSelectProduct = (product: { name: string; thumbnail: string }) => {
-//   console.log("Selected product:", product);
-// };
-
-// const ChooseProduct = () => {
-//   return <ChooseProductView products={mockProducts} selectProduct={handleSelectProduct} />;
-// }
-
-// export default ChooseProduct;
-
-// 当前版本暂且去除了异步数据请求和状态管理的功能，解除对 Redux 等的依赖，用硬编码 mockProducts 数组来模拟产品列表。
-// 并取消了useNavigate页面跳转的逻辑，直接在控制台打印选中的产品信息。
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@nextui-org/react";

@@ -12,7 +12,6 @@ const setUserFromDb = async (User: User) => {
       const userDocRef = doc(db, "users", user.uid)
       .withConverter(userDataConverter);
       await setDoc(userDocRef, User);
-      console.log("User data successfully stored.");
     } else {
       throw new Error("User not authenticated.");
     }
@@ -31,10 +30,8 @@ const getUserFromDb = async (): Promise<User | null> => {
 
       if (userDocSnap.exists()) {
         const User = userDocSnap.data();
-        console.log("User data:", User);
         return User;
       } else {
-        console.log("No such user data found.");
         return null;
       }
     } else {
@@ -52,9 +49,7 @@ const updateUserFromDb =debounce( async (updatedData: Partial<User>) => {
     const user = auth.currentUser;
     if (user) {
       const userDocRef = doc(db, "users", user.uid).withConverter(userDataConverter);
-      console.log("Updating user data:", updatedData);
       await updateDoc(userDocRef, updatedData);
-      console.log("User data successfully updated.");
     } else {
       throw new Error("User not authenticated.");
     }

@@ -56,8 +56,6 @@ const Login: React.FC = () => {
   useEffect(() => {
     const storedAdminKey = cookies.admin_key;
     if (storedAdminKey) {
-      // You can now use the storedAdminKey for any logic you need
-      console.log("Stored Admin Key:", storedAdminKey);
       dispatch(initializeAuthFromCookie(storedAdminKey));
     }
   }, [dispatch, cookies]);
