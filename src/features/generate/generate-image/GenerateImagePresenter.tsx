@@ -61,7 +61,7 @@ const GenerateImage: React.FC = () => {
 
   const handlePromptRequestChange = (newPromptRequest: Partial<Prompt>) => {
     const _promptRequest = {...promptRequestSlice,...newPromptRequest}
-    if(_promptRequest.model && newPromptRequest.model) {
+    if(_promptRequest.model && (newPromptRequest.model || newPromptRequest.keywords)) {
       sentPrompt(_promptRequest)
     }
   };
