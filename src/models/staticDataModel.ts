@@ -224,8 +224,8 @@ const INITIAL_PROMPT: Prompt = {
   generationSeed: "",
   diffusionSteps: 20,
   refine: true,
-  
 };
+
 const AVATAR_URLS = [
   "https://i.pravatar.cc/150?u=a042581f4e29026024d",
   "https://i.pravatar.cc/150?u=a04258a2462d826712d",

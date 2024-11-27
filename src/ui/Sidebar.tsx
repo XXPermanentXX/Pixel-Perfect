@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../models/user/authSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setSidebarExpanded } from "@/models/AppSlice"
-import { initialProductState, setPromptRequest,  } from "../models/generateSlice";
+import { initialGenerateState, initialProductState, setPromptRequest,  } from "../models/generateSlice";
 import { useCookies } from "react-cookie";
 import { AppDispatch, RootState } from "@/provider";
 import { INITIAL_PROMPT } from "@/models/staticDataModel";
@@ -41,6 +41,7 @@ const Sidebar = () => {
   const handleSignOut = () => {
     dispatch(setPromptRequest(INITIAL_PROMPT));
     dispatch(initialProductState());
+    dispatch(initialGenerateState())
     dispatch(logout());
     removeCookie("admin_key");
     navigate("/");

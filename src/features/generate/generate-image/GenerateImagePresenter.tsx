@@ -11,7 +11,7 @@ import {
 import { Prompt } from "@/models/types"; 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/provider";
-import { generateImage, getProductData, setPromptRequest } from "@/models/generateSlice";
+import { generateImage, getProductData, setPromptRequest, initialGenerateState } from "@/models/generateSlice";
 import { updateUserData } from "@/models/user/authSlice";
 import { setSidebarExpanded } from "@/models/AppSlice";
 import { backIcon } from "../../../assets";
@@ -31,8 +31,6 @@ const GenerateImage: React.FC = () => {
   const navigate = useNavigate()
   const user = useSelector((state:RootState) => state.auth.user)
   const productList = useSelector((state: any) => state.generate.productsData);
-  
-
 
   const sentPrompt = async (promptRequest:Prompt) => {
     dispatch(setPromptRequest(promptRequest));
@@ -52,9 +50,8 @@ const GenerateImage: React.FC = () => {
   }
   },[dispatch,user?.userId])
   const handleBack = async () => {
-    // back的逻辑写在这里
     sentPrompt(INITIAL_PROMPT)
-    console.log('clearr');
+    dispatch(initialGenerateState())
     dispatch(setSidebarExpanded(true));
     navigate("/generate/model");
   };

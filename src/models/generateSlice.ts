@@ -148,5 +148,5 @@ const generateSlice = createSlice({
   },
 });
 
-export const { initialProductState, updateLoaderText, setPromptRequest, setLocalGenerateSetting } = generateSlice.actions;
+export const { initialProductState, initialGenerateState, updateLoaderText, setPromptRequest, setLocalGenerateSetting } = generateSlice.actions;
 export default generateSlice.reducer;
